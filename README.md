@@ -2,7 +2,7 @@
 Repo for the Unity project in DATX02-20-90
 
 # Grundläggande grejer: 
-### - Pusha aldrig direkt till master!
+### Pusha aldrig direkt till master!
 - Jobba alltid på branches
 - Glöm inte "rebase" 
 - Skriv commit messages som att du säger till kodbasen vad den ska göra. "Add xxx", "Update xxx", "Refactor xxx" 
