@@ -7,3 +7,6 @@ Grundläggande grejer:
 - Glöm inte "rebase" 
 - Skriv commit messages som att du säger till kodbasen vad den ska göra. "Add xxx", "Update xxx", "Refactor xxx" 
 - Är du osäker - fråga i gruppen! Hellre en fråga för mycket än att behöva greja med ett förstört repo
+- Kolla gruppkontraktet för mer specifika regler
+
+T.ex scripts hör hemma i "Assets/Scripts", samma för materials och models
