@@ -12,4 +12,4 @@ Repo for the Unity project in DATX02-20-90
 - Kolla gruppkontraktet för mer specifika regler
 
 #### Layout
-T.ex scripts hör hemma i "Assets/Scripts", samma för materials och models
+T.ex scripts hör hemma i "Assets/Scripts", samma logik för materials och models
