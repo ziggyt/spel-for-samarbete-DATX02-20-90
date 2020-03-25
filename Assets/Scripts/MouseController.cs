@@ -26,8 +26,16 @@ public class MouseController : MonoBehaviour
         _lineRenderer = GetComponent<LineRenderer>();
         _camera = Camera.main;
         _clickedObject = false;
-        _currentDirection = new Vector3(speed, 0f);
+        _currentDirection = CalculateStartVelocity();
         explosion = transform.GetComponentInChildren<ParticleSystem>();
+    }
+
+    private Vector3 CalculateStartVelocity()
+    {
+        float alpha = transform.rotation.eulerAngles.y;
+        float zSpeed = Mathf.Cos(alpha) * speed;
+        float xSpeed = Mathf.Sin(alpha) * speed;
+        return new Vector3(xSpeed, 0f, zSpeed);
     }
 
     private void OnTriggerEnter(Collider other)
