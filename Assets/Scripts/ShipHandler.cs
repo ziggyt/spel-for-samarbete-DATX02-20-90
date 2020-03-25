@@ -100,10 +100,10 @@ public class ShipHandler : MonoBehaviour
         switch (_spawnSide)
         {
             case SpawnSide.Top:
-                yRot = Random.Range(135f, 220f);
+                yRot = Random.Range(135f, 225f);
                 break;
             case SpawnSide.Right:
-                yRot = Random.Range(220f, 320f);
+                yRot = Random.Range(225f, 315f);
                 break;
             case SpawnSide.Bottom:
                 yRot = Random.Range(-45f, 45f);
@@ -112,8 +112,6 @@ public class ShipHandler : MonoBehaviour
                 yRot = Random.Range(45f, 135f);
                 break;
         }
-        
-        Debug.Log("Y-rotation: " + yRot);
 
         return Quaternion.Euler(0f, yRot, 0f);
     }

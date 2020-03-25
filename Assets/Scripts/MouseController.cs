@@ -32,9 +32,9 @@ public class MouseController : MonoBehaviour
 
     private Vector3 CalculateStartVelocity()
     {
-        float alpha = transform.rotation.eulerAngles.y;
-        float zSpeed = Mathf.Cos(alpha) * speed;
-        float xSpeed = Mathf.Sin(alpha) * speed;
+        float radians = transform.rotation.eulerAngles.y * Mathf.Deg2Rad;
+        float zSpeed = Mathf.Cos(radians) * speed;
+        float xSpeed = Mathf.Sin(radians) * speed;
         return new Vector3(xSpeed, 0f, zSpeed);
     }
 
