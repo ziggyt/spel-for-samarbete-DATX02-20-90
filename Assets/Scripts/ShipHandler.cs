@@ -52,6 +52,8 @@ public class ShipHandler : MonoBehaviour
         Vector3 startPosition = GenerateStartLocation();
         Quaternion startRotation = GenerateStartRotation(startPosition);
         
+        // TODO: Warn player that a ship is approaching
+        
         Instantiate(prefab, startPosition, startRotation, transform);
     }
 
@@ -100,17 +102,10 @@ public class ShipHandler : MonoBehaviour
         switch (_spawnSide)
         {
             case SpawnSide.Top:
-<<<<<<< HEAD
                 yRot = Random.Range(135f, 225f);
                 break;
             case SpawnSide.Right:
                 yRot = Random.Range(225f, 315f);
-=======
-                yRot = Random.Range(135f, 220f);
-                break;
-            case SpawnSide.Right:
-                yRot = Random.Range(220f, 320f);
->>>>>>> 6aba04ef53d366148320187be62cf34f8f7ace3c
                 break;
             case SpawnSide.Bottom:
                 yRot = Random.Range(-45f, 45f);
@@ -119,11 +114,6 @@ public class ShipHandler : MonoBehaviour
                 yRot = Random.Range(45f, 135f);
                 break;
         }
-<<<<<<< HEAD
-=======
-        
-        Debug.Log("Y-rotation: " + yRot);
->>>>>>> 6aba04ef53d366148320187be62cf34f8f7ace3c
 
         return Quaternion.Euler(0f, yRot, 0f);
     }
