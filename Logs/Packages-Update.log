@@ -1,8 +1,8 @@
 
-=== Sun Mar 15 18:53:47 2020
+=== Tue Mar 31 10:01:54 2020
 
 Packages were changed.
-Update Mode: mergeDefaultDependencies
+Update Mode: resetToDefaultDependencies
 
 The following packages were added:
   com.unity.collab-proxy@1.2.16
@@ -41,5 +41,5 @@ The following packages were added:
   com.unity.modules.xr@1.0.0
   com.unity.test-framework@1.1.11
   com.unity.textmeshpro@2.0.1
-  com.unity.timeline@1.2.12
+  com.unity.timeline@1.2.13
   com.unity.ugui@1.0.0
