@@ -75,7 +75,7 @@ public class InputHandler : MonoBehaviour
     {
         if (fingerId == -1)
         {
-//            RecordPath();
+            RecordPath();
         }
         HandleMovement();
     }
@@ -141,7 +141,7 @@ public class InputHandler : MonoBehaviour
 
     private void RecordPath()
     {
-        if (Input.GetMouseButton(0) && _clickedObject)
+        if (Input.GetMouseButton(0) && _clickedObject && Input.touchCount == 0)
         {
             Vector3 point;
             // Add mouse coordinates as a point to path
