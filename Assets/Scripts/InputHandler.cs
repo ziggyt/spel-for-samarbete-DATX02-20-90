@@ -17,6 +17,7 @@ public class InputHandler : MonoBehaviour
     private LineRenderer _lineRenderer;
     private Vector3 _currentDirection;
     private ParticleSystem explosion;
+    private int fingerId = -1;
     
     // Start is called before the first frame update
     void Start()
@@ -40,7 +41,7 @@ public class InputHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Ship")
         {
             explosion.Play();
             GetComponent<MeshRenderer>().enabled = false;
@@ -64,15 +65,18 @@ public class InputHandler : MonoBehaviour
         // Mark the object clicked and clear array for new path
         _clickedObject = true;
         _path.Clear();
-        
+
         // Mark as kinematic to disable velocity
         _rigidBody.isKinematic = true;
     }
-
+    
     // Update is called once per frame
     void FixedUpdate()
     {
-        RecordPath();
+        if (fingerId == -1)
+        {
+//            RecordPath();
+        }
         HandleMovement();
     }
 
@@ -80,6 +84,7 @@ public class InputHandler : MonoBehaviour
     {
         if (_path.Count != 0)
         {
+            _rigidBody.isKinematic = true; 
             MoveToPoint();
         }
         else
@@ -128,12 +133,20 @@ public class InputHandler : MonoBehaviour
         _lineRenderer.SetPositions(_path.ToArray());
     }
 
+    public void AddPointToPath(Vector3 point)
+    {
+        _path.Add(point);
+        DrawLines();
+    }
+
     private void RecordPath()
     {
         if (Input.GetMouseButton(0) && _clickedObject)
         {
+            Vector3 point;
             // Add mouse coordinates as a point to path
-            Vector3 point = _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, _camera.transform.position.y - transform.position.y));
+            point = _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, _camera.transform.position.y - transform.position.y));
+
             _path.Add(point);
             DrawLines();
         }
@@ -141,8 +154,22 @@ public class InputHandler : MonoBehaviour
         {
             // Mouse released so no more adding points
             _clickedObject = false;
-            
-            // TODO: Transform the uneven path to even distance points
         }
+    }
+
+    public void SetFingerId(int id)
+    {
+        _path.Clear();
+        fingerId = id;
+    }
+
+    public int GetFingerId()
+    {
+        return fingerId;
+    }
+
+    public void ResetFingerId()
+    {
+        fingerId = -1;
     }
 }
