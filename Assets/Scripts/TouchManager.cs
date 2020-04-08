@@ -38,7 +38,13 @@ public class TouchManager : MonoBehaviour
         if (fingerIdToShip.ContainsKey(currentFingerId))
         {
             GameObject ship = fingerIdToShip[currentFingerId];
-            ship.GetComponent<InputHandler>().ResetFingerId();
+
+            // Handle if ship is destroyed while deregistering
+            if (ship != null)
+            {
+                ship.GetComponent<InputHandler>().ResetFingerId();
+            }
+            
             fingerIdToShip.Remove(currentFingerId);
         }
     }
@@ -69,13 +75,22 @@ public class TouchManager : MonoBehaviour
         if (fingerIdToShip.ContainsKey(currentFingerId)) 
         {
             GameObject ship = fingerIdToShip[currentFingerId];
-            InputHandler inputHandler = ship.GetComponent<InputHandler>();
-            int shipFingerId = inputHandler.GetFingerId();
-            if (currentFingerId == shipFingerId)
+
+            // Handle if ship is destroyed while drawing path
+            if (ship != null)
             {
-                Camera camera = Camera.main;
-                Vector3 point = camera.ScreenToWorldPoint(new Vector3(currentTouch.position.x, currentTouch.position.y, camera.transform.position.y - ship.transform.position.y));
-                inputHandler.AddPointToPath(point);
+                InputHandler inputHandler = ship.GetComponent<InputHandler>();
+                int shipFingerId = inputHandler.GetFingerId();
+                if (currentFingerId == shipFingerId)
+                {
+                    Camera camera = Camera.main;
+                    Vector3 point = camera.ScreenToWorldPoint(new Vector3(currentTouch.position.x, currentTouch.position.y, camera.transform.position.y - ship.transform.position.y));
+                    inputHandler.AddPointToPath(point);
+                }
+            }
+            else
+            {
+                DeregisterShip(currentTouch);
             }
         }
     }
