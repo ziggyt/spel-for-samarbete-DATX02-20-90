@@ -62,22 +62,7 @@ public class ShipSpawner : MonoBehaviour
     private void AddRandomColor(GameObject ship)
     {
         ShipHandler shipHandler = ship.GetComponent<ShipHandler>();
-        shipHandler.ShipColor = GenerateRandomColor();
-    }
-
-    private Color GenerateRandomColor()
-    {
-        Color[] colors =
-        {
-            Color.red,
-            Color.green,
-            Color.blue
-        };
-
-        System.Random randomGenerator = new System.Random();
-        int randomInt = randomGenerator.Next(0, colors.Length);
-
-        return colors[randomInt];
+        shipHandler.ShipColor = ColorManager.GetRandomColor();
     }
 
     private Vector3 GenerateStartLocation()
