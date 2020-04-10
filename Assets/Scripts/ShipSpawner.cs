@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,7 +44,7 @@ public class ShipSpawner : MonoBehaviour
     {
         SpawnShip();
         
-        float randomTime = Random.Range(minSpawnTime, maxSpawnTime);
+        float randomTime = UnityEngine.Random.Range(minSpawnTime, maxSpawnTime);
         Invoke("RandomSpawn", randomTime);
     }
 
@@ -54,12 +55,34 @@ public class ShipSpawner : MonoBehaviour
         
         // TODO: Warn player that a ship is approaching
         
-        Instantiate(prefab, startPosition, startRotation, transform);
+        GameObject ship = Instantiate(prefab, startPosition, startRotation, transform);
+        AddRandomColor(ship);
+    }
+
+    private void AddRandomColor(GameObject ship)
+    {
+        ShipHandler shipHandler = ship.GetComponent<ShipHandler>();
+        shipHandler.ShipColor = GenerateRandomColor();
+    }
+
+    private Color GenerateRandomColor()
+    {
+        Color[] colors =
+        {
+            Color.red,
+            Color.green,
+            Color.blue
+        };
+
+        System.Random randomGenerator = new System.Random();
+        int randomInt = randomGenerator.Next(0, colors.Length);
+
+        return colors[randomInt];
     }
 
     private Vector3 GenerateStartLocation()
     {
-        float randomValue = Random.value;
+        float randomValue = UnityEngine.Random.value;
         float xPos;
         float zPos;
         
@@ -67,7 +90,7 @@ public class ShipSpawner : MonoBehaviour
         {
             // Spawn on top
             _spawnSide = SpawnSide.Top;
-            xPos = Random.Range(_worldLeftEdge, _worldRightEdge);
+            xPos = UnityEngine.Random.Range(_worldLeftEdge, _worldRightEdge);
             zPos = _worldTopEdge;
         }
         else if (randomValue < 0.5f)
@@ -75,13 +98,13 @@ public class ShipSpawner : MonoBehaviour
             // Spawn to the right
             _spawnSide = SpawnSide.Right;
             xPos = _worldRightEdge;
-            zPos = Random.Range(_worldBottomEdge, _worldTopEdge);
+            zPos = UnityEngine.Random.Range(_worldBottomEdge, _worldTopEdge);
         }
         else if (randomValue < 0.75f)
         {
             // Spawn on bottom
             _spawnSide = SpawnSide.Bottom;
-            xPos = Random.Range(_worldLeftEdge, _worldRightEdge);
+            xPos = UnityEngine.Random.Range(_worldLeftEdge, _worldRightEdge);
             zPos = _worldBottomEdge;
         }
         else
@@ -89,7 +112,7 @@ public class ShipSpawner : MonoBehaviour
             // Spawn to the left
             _spawnSide = SpawnSide.Left;
             xPos = _worldLeftEdge;
-            zPos = Random.Range(_worldBottomEdge, _worldTopEdge);
+            zPos = UnityEngine.Random.Range(_worldBottomEdge, _worldTopEdge);
         }
         
         return new Vector3(xPos, flightHeight, zPos);
@@ -102,16 +125,16 @@ public class ShipSpawner : MonoBehaviour
         switch (_spawnSide)
         {
             case SpawnSide.Top:
-                yRot = Random.Range(135f, 225f);
+                yRot = UnityEngine.Random.Range(135f, 225f);
                 break;
             case SpawnSide.Right:
-                yRot = Random.Range(225f, 315f);
+                yRot = UnityEngine.Random.Range(225f, 315f);
                 break;
             case SpawnSide.Bottom:
-                yRot = Random.Range(-45f, 45f);
+                yRot = UnityEngine.Random.Range(-45f, 45f);
                 break;
             default:
-                yRot = Random.Range(45f, 135f);
+                yRot = UnityEngine.Random.Range(45f, 135f);
                 break;
         }
 
