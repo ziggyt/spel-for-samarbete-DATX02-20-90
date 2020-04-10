@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3614745739310168137}
   m_Layer: 0
   m_Name: Spaceship
-  m_TagString: Player
+  m_TagString: Ship
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -219,10 +219,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3614745739310168135}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 963bc785151f48334a8d1814805ee634, type: 3}
+  m_Script: {fileID: 11500000, guid: 0c51e40e1d9dda94a80bd449f8b7b05d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 4
 --- !u!1001 &4078240061149212886
 PrefabInstance:
   m_ObjectHideFlags: 0
