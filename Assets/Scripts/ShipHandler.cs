@@ -6,15 +6,15 @@ using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
 
-public class ShipMovement : MonoBehaviour
+public class ShipHandler : MonoBehaviour
 {
 
     [SerializeField] private float speed = 0.5f;
-    private List<Vector3> _path;
+    private List<Vector3> _path = new List<Vector3>();
     private Rigidbody _rigidBody;
-    private Camera _camera;
-    private bool _clickedObject;
     private LineRenderer _lineRenderer;
+    private Camera _camera;
+    private bool _clickedObject = false;
     private Vector3 _currentDirection;
     private ParticleSystem explosion;
     private int fingerId = -1;
@@ -22,11 +22,9 @@ public class ShipMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _path = new List<Vector3>();
         _rigidBody = GetComponent<Rigidbody>();
         _lineRenderer = GetComponent<LineRenderer>();
         _camera = Camera.main;
-        _clickedObject = false;
         _currentDirection = CalculateStartVelocity();
         explosion = transform.GetComponentInChildren<ParticleSystem>();
     }
@@ -171,5 +169,11 @@ public class ShipMovement : MonoBehaviour
     public void ResetFingerId()
     {
         fingerId = -1;
+    }
+
+    public Color ShipColor
+    {
+        get { return gameObject.GetComponent<MeshRenderer>().material.color; }
+        set { gameObject.GetComponent<MeshRenderer>().material.color = value; }
     }
 }
