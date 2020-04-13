@@ -6,9 +6,11 @@ using UnityEngine;
 public class LandingPadHandler : MonoBehaviour
 {
     private Color currentColor;
+    private Color nextColor;
 
     private void Start()
     {
+        nextColor = ColorManager.GetRandomColor();
         ChangeColor();
     }
 
@@ -24,13 +26,30 @@ public class LandingPadHandler : MonoBehaviour
         else
         {
             // TODO: Detract points or something, crash ships?
-            Debug.Log("Wrong colored ship landed");
         }
     }
 
     private void ChangeColor()
     {
-        currentColor = ColorManager.GetRandomColor();
-        gameObject.GetComponent<MeshRenderer>().material.color = currentColor;
+        currentColor = nextColor;
+        nextColor = ColorManager.GetRandomColor();
+        AssignPadColors();
+    }
+
+    private void AssignPadColors()
+    {
+        var padMeshes = GetComponentsInChildren<MeshRenderer>();
+
+        foreach (MeshRenderer padMesh in padMeshes)
+        {
+            if (padMesh.tag == "CurrentLandingPad")
+            {
+                padMesh.material.color = currentColor;
+            }
+            else if (padMesh.tag == "NextLandingPad")
+            {
+                padMesh.material.color = nextColor;
+            }
+        }
     }
 }
