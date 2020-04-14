@@ -39,7 +39,7 @@ public class ShipHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Ship")
+        if (other.tag == "Ship" || other.tag == "Wall")
         {
             explosion.Play();
             GetComponent<MeshRenderer>().enabled = false;
@@ -48,6 +48,7 @@ public class ShipHandler : MonoBehaviour
         }
         else if (other.tag == "Finish")
         {
+            // TODO: Finish sequence
             Destroy(gameObject);
         }
     }
