@@ -8,6 +8,7 @@ public class ShipSpawner : MonoBehaviour
     [SerializeField] private float minSpawnTime = 5f;
     [SerializeField] private float maxSpawnTime = 20f;
     [SerializeField] private float flightHeight = 5f;
+    [SerializeField] float spawnOffset = 20f;
     [SerializeField] private GameObject prefab;
     [SerializeField] private Transform world;
 
@@ -75,7 +76,7 @@ public class ShipSpawner : MonoBehaviour
         {
             // Spawn on top
             _spawnSide = SpawnSide.Top;
-            xPos = UnityEngine.Random.Range(_worldLeftEdge, _worldRightEdge);
+            xPos = UnityEngine.Random.Range(_worldLeftEdge + spawnOffset, _worldRightEdge - spawnOffset);
             zPos = _worldTopEdge;
         }
         else if (randomValue < 0.5f)
@@ -83,13 +84,13 @@ public class ShipSpawner : MonoBehaviour
             // Spawn to the right
             _spawnSide = SpawnSide.Right;
             xPos = _worldRightEdge;
-            zPos = UnityEngine.Random.Range(_worldBottomEdge, _worldTopEdge);
+            zPos = UnityEngine.Random.Range(_worldBottomEdge + spawnOffset, _worldTopEdge - spawnOffset);
         }
         else if (randomValue < 0.75f)
         {
             // Spawn on bottom
             _spawnSide = SpawnSide.Bottom;
-            xPos = UnityEngine.Random.Range(_worldLeftEdge, _worldRightEdge);
+            xPos = UnityEngine.Random.Range(_worldLeftEdge + spawnOffset, _worldRightEdge - spawnOffset);
             zPos = _worldBottomEdge;
         }
         else
@@ -97,7 +98,7 @@ public class ShipSpawner : MonoBehaviour
             // Spawn to the left
             _spawnSide = SpawnSide.Left;
             xPos = _worldLeftEdge;
-            zPos = UnityEngine.Random.Range(_worldBottomEdge, _worldTopEdge);
+            zPos = UnityEngine.Random.Range(_worldBottomEdge + spawnOffset, _worldTopEdge - spawnOffset);
         }
         
         return new Vector3(xPos, flightHeight, zPos);
