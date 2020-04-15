@@ -67,6 +67,7 @@ public class ShipSpawner : MonoBehaviour
         GameObject ship = Instantiate(prefab, startPosition, startRotation, transform);
         ShipHandler shipHandler = ship.GetComponent<ShipHandler>();
         shipHandler.CurrentDirection = CalculateStartVelocity(ship);
+        shipHandler.Speed = speed;
     }
 
     private Vector3 GenerateStartLocation()

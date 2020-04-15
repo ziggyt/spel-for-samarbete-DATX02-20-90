@@ -8,8 +8,7 @@ using Vector3 = UnityEngine.Vector3;
 
 public class ShipHandler : MonoBehaviour
 {
-
-    [SerializeField] private float speed = 0.5f;
+    float speed;
     private List<Vector3> path = new List<Vector3>();
     private Rigidbody rigidBody;
     private LineRenderer lineRenderer;
@@ -173,5 +172,10 @@ public class ShipHandler : MonoBehaviour
     {
         get { return gameObject.GetComponent<MeshRenderer>().material.color; }
         set { gameObject.GetComponent<MeshRenderer>().material.color = value; }
+    }
+
+    public float Speed
+    {
+        set { speed = value; }
     }
 }
