@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShipSpawner : MonoBehaviour
+public class Spawner : MonoBehaviour
 {
     [SerializeField] float minSpawnTime = 5f;
     [SerializeField] float maxSpawnTime = 20f;
@@ -30,9 +30,13 @@ public class ShipSpawner : MonoBehaviour
     void Start()
     {
         CalculateWorldEdges();
-        RandomSpawn();
+
+        // Initial spawn
+        float randomTime = UnityEngine.Random.Range(minSpawnTime, maxSpawnTime);
+        Invoke("RandomSpawn", randomTime);
     }
 
+    // Sets the world edges the the size of the world space, with lower left corner at origo
     private void CalculateWorldEdges()
     {
         worldLeftEdge = 0;
@@ -41,43 +45,47 @@ public class ShipSpawner : MonoBehaviour
         worldTopEdge = world.localScale.z;
     }
 
-    private Vector3 CalculateStartVelocity(GameObject ship)
+    // Returns the initial velocity based on the objects start angle
+    private Vector3 CalculateStartVelocity(GameObject entity)
     {
-        float radians = ship.transform.rotation.eulerAngles.y * Mathf.Deg2Rad;
+        float radians = entity.transform.rotation.eulerAngles.y * Mathf.Deg2Rad;
         float zSpeed = Mathf.Cos(radians) * speed;
         float xSpeed = Mathf.Sin(radians) * speed;
         return new Vector3(xSpeed, 0f, zSpeed);
     }
 
+    // Spawns an object then waits a randomized time before doing it again
     private void RandomSpawn()
     {
-        SpawnShip();
+        SpawnEntity();
         
         float randomTime = UnityEngine.Random.Range(minSpawnTime, maxSpawnTime);
         Invoke("RandomSpawn", randomTime);
     }
 
-    private void SpawnShip()
+    // Spawns an object in the world at random edge position and random angle
+    private void SpawnEntity()
     {
         Vector3 startPosition = GenerateStartLocation();
         Quaternion startRotation = GenerateStartRotation(startPosition);
         
-        // TODO: Warn player that a ship is approaching
+        // TODO: Warn player that a entity is approaching
         
-        GameObject ship = Instantiate(prefab, startPosition, startRotation, transform);
+        GameObject entity = Instantiate(prefab, startPosition, startRotation, transform);
 
-        if (ship.tag == "Ship")
+        if (entity.tag == "Ship")
         {
-            ShipHandler shipHandler = ship.GetComponent<ShipHandler>();
-            shipHandler.CurrentDirection = CalculateStartVelocity(ship);
+            ShipHandler shipHandler = entity.GetComponent<ShipHandler>();
+            shipHandler.CurrentDirection = CalculateStartVelocity(entity);
             shipHandler.Speed = speed;
         }
         else
         {
-            ship.GetComponent<Rigidbody>().velocity = CalculateStartVelocity(ship);
+            entity.GetComponent<Rigidbody>().velocity = CalculateStartVelocity(entity);
         }
     }
 
+    // Returns a random location on the world edge
     private Vector3 GenerateStartLocation()
     {
         float randomValue = UnityEngine.Random.value;
@@ -116,6 +124,7 @@ public class ShipSpawner : MonoBehaviour
         return new Vector3(xPos, flightHeight, zPos);
     }
     
+    // Returns a random direction based on spawnside
     private Quaternion GenerateStartRotation(Vector3 startPosition)
     {
         float yRot;

@@ -808,7 +808,7 @@ MonoBehaviour:
   spawnOffset: 20
   prefab: {fileID: 7019834334964422647, guid: be73a10193bb6ba4f94fd81ec315c7b6, type: 3}
   world: {fileID: 1180429391}
-  speed: 10
+  speed: 5
 --- !u!1 &1265152890
 GameObject:
   m_ObjectHideFlags: 0
@@ -1208,6 +1208,11 @@ PrefabInstance:
       propertyPath: spawnOffset
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 4484489157245481797, guid: 249fde8f5c1c3ef409e21b6972f6ef8f,
+        type: 3}
+      propertyPath: maxSpawnTime
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 4484489157245481798, guid: 249fde8f5c1c3ef409e21b6972f6ef8f,
         type: 3}
       propertyPath: m_Name
@@ -1280,7 +1285,7 @@ PrefabInstance:
     - target: {fileID: 4778167962139540824, guid: 54739f68486858947acd30e50ddc9305,
         type: 3}
       propertyPath: m_Name
-      value: MeteorSpawner
+      value: Meteor Spawner
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54739f68486858947acd30e50ddc9305, type: 3}
