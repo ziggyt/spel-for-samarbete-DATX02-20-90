@@ -16,16 +16,19 @@ public class LandingPadHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        ShipHandler shipHandler = other.gameObject.GetComponent<ShipHandler>();
-        
-        if (shipHandler.ShipColor == currentColor)
+        if (other.tag == "Ship")
         {
-            // TODO: Add points or something
-            ChangeColor();
-        }
-        else
-        {
-            // TODO: Detract points or something, crash ships?
+            ShipHandler shipHandler = other.gameObject.GetComponent<ShipHandler>();
+            
+            if (shipHandler.ShipColor == currentColor)
+            {
+                // TODO: Add points or something
+                ChangeColor();
+            }
+            else
+            {
+                // TODO: Detract points or something, crash ships?
+            }
         }
     }
 

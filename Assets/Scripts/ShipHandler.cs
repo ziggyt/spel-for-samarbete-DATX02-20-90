@@ -35,7 +35,7 @@ public class ShipHandler : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Ship" || other.tag == "Wall")
+        if (other.tag == "Ship" || other.tag == "Wall" || other.tag == "Meteor")
         {
             explosion.Play();
             GetComponent<MeshRenderer>().enabled = false;

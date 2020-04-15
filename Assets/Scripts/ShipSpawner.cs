@@ -65,9 +65,17 @@ public class ShipSpawner : MonoBehaviour
         // TODO: Warn player that a ship is approaching
         
         GameObject ship = Instantiate(prefab, startPosition, startRotation, transform);
-        ShipHandler shipHandler = ship.GetComponent<ShipHandler>();
-        shipHandler.CurrentDirection = CalculateStartVelocity(ship);
-        shipHandler.Speed = speed;
+
+        if (ship.tag == "Ship")
+        {
+            ShipHandler shipHandler = ship.GetComponent<ShipHandler>();
+            shipHandler.CurrentDirection = CalculateStartVelocity(ship);
+            shipHandler.Speed = speed;
+        }
+        else
+        {
+            ship.GetComponent<Rigidbody>().velocity = CalculateStartVelocity(ship);
+        }
     }
 
     private Vector3 GenerateStartLocation()
