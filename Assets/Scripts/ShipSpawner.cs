@@ -5,18 +5,19 @@ using UnityEngine;
 
 public class ShipSpawner : MonoBehaviour
 {
-    [SerializeField] private float minSpawnTime = 5f;
-    [SerializeField] private float maxSpawnTime = 20f;
-    [SerializeField] private float flightHeight = 5f;
+    [SerializeField] float minSpawnTime = 5f;
+    [SerializeField] float maxSpawnTime = 20f;
+    [SerializeField] float flightHeight = 5f;
     [SerializeField] float spawnOffset = 20f;
-    [SerializeField] private GameObject prefab;
-    [SerializeField] private Transform world;
+    [SerializeField] GameObject prefab;
+    [SerializeField] Transform world;
+    [SerializeField] float speed = 5f;
 
-    private float _worldLeftEdge;
-    private float _worldRightEdge;
-    private float _worldBottomEdge;
-    private float _worldTopEdge;
-    private SpawnSide _spawnSide;
+    float worldLeftEdge;
+    float worldRightEdge;
+    float worldBottomEdge;
+    float worldTopEdge;
+    SpawnSide spawnSide;
 
     enum SpawnSide
     {
@@ -26,7 +27,6 @@ public class ShipSpawner : MonoBehaviour
         Left
     };
 
-    // Start is called before the first frame update
     void Start()
     {
         CalculateWorldEdges();
@@ -35,10 +35,18 @@ public class ShipSpawner : MonoBehaviour
 
     private void CalculateWorldEdges()
     {
-        _worldLeftEdge = 0;
-        _worldRightEdge = world.localScale.x;
-        _worldBottomEdge = 0;
-        _worldTopEdge = world.localScale.z;
+        worldLeftEdge = 0;
+        worldRightEdge = world.localScale.x;
+        worldBottomEdge = 0;
+        worldTopEdge = world.localScale.z;
+    }
+
+    private Vector3 CalculateStartVelocity(GameObject ship)
+    {
+        float radians = ship.transform.rotation.eulerAngles.y * Mathf.Deg2Rad;
+        float zSpeed = Mathf.Cos(radians) * speed;
+        float xSpeed = Mathf.Sin(radians) * speed;
+        return new Vector3(xSpeed, 0f, zSpeed);
     }
 
     private void RandomSpawn()
@@ -57,13 +65,8 @@ public class ShipSpawner : MonoBehaviour
         // TODO: Warn player that a ship is approaching
         
         GameObject ship = Instantiate(prefab, startPosition, startRotation, transform);
-        AddRandomColor(ship);
-    }
-
-    private void AddRandomColor(GameObject ship)
-    {
         ShipHandler shipHandler = ship.GetComponent<ShipHandler>();
-        shipHandler.ShipColor = ColorManager.GetRandomColor();
+        shipHandler.CurrentDirection = CalculateStartVelocity(ship);
     }
 
     private Vector3 GenerateStartLocation()
@@ -75,30 +78,30 @@ public class ShipSpawner : MonoBehaviour
         if (randomValue < 0.25f)
         {
             // Spawn on top
-            _spawnSide = SpawnSide.Top;
-            xPos = UnityEngine.Random.Range(_worldLeftEdge + spawnOffset, _worldRightEdge - spawnOffset);
-            zPos = _worldTopEdge;
+            spawnSide = SpawnSide.Top;
+            xPos = UnityEngine.Random.Range(worldLeftEdge + spawnOffset, worldRightEdge - spawnOffset);
+            zPos = worldTopEdge;
         }
         else if (randomValue < 0.5f)
         {
             // Spawn to the right
-            _spawnSide = SpawnSide.Right;
-            xPos = _worldRightEdge;
-            zPos = UnityEngine.Random.Range(_worldBottomEdge + spawnOffset, _worldTopEdge - spawnOffset);
+            spawnSide = SpawnSide.Right;
+            xPos = worldRightEdge;
+            zPos = UnityEngine.Random.Range(worldBottomEdge + spawnOffset, worldTopEdge - spawnOffset);
         }
         else if (randomValue < 0.75f)
         {
             // Spawn on bottom
-            _spawnSide = SpawnSide.Bottom;
-            xPos = UnityEngine.Random.Range(_worldLeftEdge + spawnOffset, _worldRightEdge - spawnOffset);
-            zPos = _worldBottomEdge;
+            spawnSide = SpawnSide.Bottom;
+            xPos = UnityEngine.Random.Range(worldLeftEdge + spawnOffset, worldRightEdge - spawnOffset);
+            zPos = worldBottomEdge;
         }
         else
         {
             // Spawn to the left
-            _spawnSide = SpawnSide.Left;
-            xPos = _worldLeftEdge;
-            zPos = UnityEngine.Random.Range(_worldBottomEdge + spawnOffset, _worldTopEdge - spawnOffset);
+            spawnSide = SpawnSide.Left;
+            xPos = worldLeftEdge;
+            zPos = UnityEngine.Random.Range(worldBottomEdge + spawnOffset, worldTopEdge - spawnOffset);
         }
         
         return new Vector3(xPos, flightHeight, zPos);
@@ -108,7 +111,7 @@ public class ShipSpawner : MonoBehaviour
     {
         float yRot;
 
-        switch (_spawnSide)
+        switch (spawnSide)
         {
             case SpawnSide.Top:
                 yRot = UnityEngine.Random.Range(135f, 225f);

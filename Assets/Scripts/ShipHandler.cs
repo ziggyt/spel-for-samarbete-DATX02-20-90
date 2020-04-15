@@ -10,31 +10,28 @@ public class ShipHandler : MonoBehaviour
 {
 
     [SerializeField] private float speed = 0.5f;
-    private List<Vector3> _path = new List<Vector3>();
-    private Rigidbody _rigidBody;
-    private LineRenderer _lineRenderer;
-    private Camera _camera;
-    private bool _clickedObject = false;
-    private Vector3 _currentDirection;
+    private List<Vector3> path = new List<Vector3>();
+    private Rigidbody rigidBody;
+    private LineRenderer lineRenderer;
+    private Camera camera;
+    private bool clickedObject = false;
+    private Vector3 currentDirection;
     private ParticleSystem explosion;
     private int fingerId = -1;
     
     // Start is called before the first frame update
     void Start()
     {
-        _rigidBody = GetComponent<Rigidbody>();
-        _lineRenderer = GetComponent<LineRenderer>();
-        _camera = Camera.main;
-        _currentDirection = CalculateStartVelocity();
+        rigidBody = GetComponent<Rigidbody>();
+        lineRenderer = GetComponent<LineRenderer>();
+        camera = Camera.main;
         explosion = transform.GetComponentInChildren<ParticleSystem>();
+        ShipColor = ColorManager.GetRandomColor();
     }
 
-    private Vector3 CalculateStartVelocity()
+    public Vector3 CurrentDirection
     {
-        float radians = transform.rotation.eulerAngles.y * Mathf.Deg2Rad;
-        float zSpeed = Mathf.Cos(radians) * speed;
-        float xSpeed = Mathf.Sin(radians) * speed;
-        return new Vector3(xSpeed, 0f, zSpeed);
+        set { currentDirection = value; }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -43,7 +40,7 @@ public class ShipHandler : MonoBehaviour
         {
             explosion.Play();
             GetComponent<MeshRenderer>().enabled = false;
-            _lineRenderer.enabled = false;
+            lineRenderer.enabled = false;
             Invoke("DeathSequence", 2f);
         }
         else if (other.tag == "Finish")
@@ -62,11 +59,11 @@ public class ShipHandler : MonoBehaviour
     private void OnMouseDown()
     {
         // Mark the object clicked and clear array for new path
-        _clickedObject = true;
-        _path.Clear();
+        clickedObject = true;
+        path.Clear();
 
         // Mark as kinematic to disable velocity
-        _rigidBody.isKinematic = true;
+        rigidBody.isKinematic = true;
     }
     
     // Update is called once per frame
@@ -81,9 +78,9 @@ public class ShipHandler : MonoBehaviour
 
     private void HandleMovement()
     {
-        if (_path.Count != 0)
+        if (path.Count != 0)
         {
-            _rigidBody.isKinematic = true; 
+            rigidBody.isKinematic = true; 
             MoveToPoint();
         }
         else
@@ -95,22 +92,22 @@ public class ShipHandler : MonoBehaviour
     private void MoveFreely()
     {
         // Make object go in a straight line after last point
-        _rigidBody.isKinematic = false;
-        _rigidBody.velocity = _currentDirection;
+        rigidBody.isKinematic = false;
+        rigidBody.velocity = currentDirection;
         transform.rotation = Quaternion.Slerp(transform.rotation,
-            Quaternion.LookRotation(_currentDirection, transform.up), 0.15f);
+            Quaternion.LookRotation(currentDirection, transform.up), 0.15f);
     }
 
     private void MoveToPoint()
     {
         // Move one step towards current point
         float step = speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, _path[0], step);
+        transform.position = Vector3.MoveTowards(transform.position, path[0], step);
 
-        if (transform.position.Equals(_path[0]))
+        if (transform.position.Equals(path[0]))
         {
             // Delete point if reached
-            _path.RemoveAt(0);
+            path.RemoveAt(0);
 
             // Recalculate line renderer
             DrawLines();
@@ -118,47 +115,47 @@ public class ShipHandler : MonoBehaviour
         else
         {
             // Save current direction
-            _currentDirection = (_path[0] - transform.position).normalized * speed;
+            currentDirection = (path[0] - transform.position).normalized * speed;
 
             // Face right direction
             transform.rotation = Quaternion.Slerp(transform.rotation,
-                Quaternion.LookRotation(_currentDirection, transform.up), 0.15f);
+                Quaternion.LookRotation(currentDirection, transform.up), 0.15f);
         }
     }
 
     private void DrawLines()
     {
-        _lineRenderer.positionCount = _path.Count;
-        _lineRenderer.SetPositions(_path.ToArray());
+        lineRenderer.positionCount = path.Count;
+        lineRenderer.SetPositions(path.ToArray());
     }
 
     public void AddPointToPath(Vector3 point)
     {
-        _path.Add(point);
+        path.Add(point);
         DrawLines();
     }
 
     private void RecordPath()
     {
-        if (Input.GetMouseButton(0) && _clickedObject && Input.touchCount == 0)
+        if (Input.GetMouseButton(0) && clickedObject && Input.touchCount == 0)
         {
             Vector3 point;
             // Add mouse coordinates as a point to path
-            point = _camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, _camera.transform.position.y - transform.position.y));
+            point = camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, camera.transform.position.y - transform.position.y));
 
-            _path.Add(point);
+            path.Add(point);
             DrawLines();
         }
-        else if (_clickedObject)
+        else if (clickedObject)
         {
             // Mouse released so no more adding points
-            _clickedObject = false;
+            clickedObject = false;
         }
     }
 
     public void SetFingerId(int id)
     {
-        _path.Clear();
+        path.Clear();
         fingerId = id;
     }
 
