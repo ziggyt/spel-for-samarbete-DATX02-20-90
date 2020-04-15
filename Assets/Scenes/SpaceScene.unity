@@ -802,13 +802,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c619ac6466efb1043bef2a5bcf12ac3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpawnTime: 5
-  maxSpawnTime: 20
+  minSpawnTime: 25
+  maxSpawnTime: 30
   flightHeight: 5
   spawnOffset: 20
   prefab: {fileID: 7019834334964422647, guid: be73a10193bb6ba4f94fd81ec315c7b6, type: 3}
   world: {fileID: 1180429391}
-  speed: 5
+  speed: 10
 --- !u!1 &1265152890
 GameObject:
   m_ObjectHideFlags: 0
