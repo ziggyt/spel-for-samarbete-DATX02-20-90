@@ -1,104 +1,84 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Numerics;
-using UnityEngine;
-using Quaternion = UnityEngine.Quaternion;
-using Vector3 = UnityEngine.Vector3;
+﻿using UnityEngine;
+using UnityEngine.Networking;
 
-public class ShipHandler : MonoBehaviour
+public class ShipHandler : NetworkBehaviour
 {
-    float speed;
-    private List<Vector3> path = new List<Vector3>();
-    private Rigidbody rigidBody;
+    // Variables
+    private int fingerId;
+    private SyncListVector path = new SyncListVector();
     private LineRenderer lineRenderer;
-    private Camera camera;
-    private bool clickedObject = false;
+    private Rigidbody rigidBody;
     private Vector3 currentDirection;
-    private ParticleSystem explosion;
-    private int fingerId = -1;
-    
-    // Start is called before the first frame update
+    [SerializeField] private float speed = 2f;
+
+    // Register components on start
     void Start()
     {
-        rigidBody = GetComponent<Rigidbody>();
         lineRenderer = GetComponent<LineRenderer>();
-        camera = Camera.main;
-        explosion = transform.GetComponentInChildren<ParticleSystem>();
-        ShipColor = ColorManager.GetRandomColor();
-    }
 
-    public Vector3 CurrentDirection
-    {
-        set { currentDirection = value; }
-    }
+        if (!isServer)
+        {
+            return;
+        }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Ship" || other.tag == "Wall" || other.tag == "Meteor")
-        {
-            explosion.Play();
-            GetComponent<MeshRenderer>().enabled = false;
-            lineRenderer.enabled = false;
-            Invoke("DeathSequence", 2f);
-        }
-        else if (other.tag == "Finish")
-        {
-            // TODO: Finish sequence
-            Destroy(gameObject);
-        }
+        rigidBody = GetComponent<Rigidbody>();
     }
     
-    private void DeathSequence()
+    // Update movement
+    void Update()
     {
-           Destroy(gameObject);
-    }
+        DrawLines();
 
-    // Called when the object is pressed
-    private void OnMouseDown()
-    {
-        // Mark the object clicked and clear array for new path
-        clickedObject = true;
-        path.Clear();
-
-        // Mark as kinematic to disable velocity
-        rigidBody.isKinematic = true;
-    }
-    
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        if (fingerId == -1)
+        if (!isServer)
         {
-            RecordPath();
+            return;
         }
+
         HandleMovement();
     }
 
+    // Renders the current path with lines
+    private void DrawLines()
+    {
+        lineRenderer.positionCount = path.Count;
+        Vector3[] pathArr = new Vector3[path.Count];
+        int i = 0;
+
+        foreach (Vector3 vec in path)
+        {
+            pathArr[i] = vec;
+            i++;
+        }
+
+        lineRenderer.SetPositions(pathArr);
+    }
+
+    // Handle movement based on path exist
     private void HandleMovement()
     {
-        if (path.Count != 0)
-        {
-            rigidBody.isKinematic = true; 
-            MoveToPoint();
-        }
-        else
+        if (path.Count == 0)
         {
             MoveFreely();
         }
+        else
+        {
+            MoveToPoint();
+        }
     }
 
+    // Make object go in a straight line after last point
     private void MoveFreely()
     {
-        // Make object go in a straight line after last point
         rigidBody.isKinematic = false;
         rigidBody.velocity = currentDirection;
-        transform.rotation = Quaternion.Slerp(transform.rotation,
-            Quaternion.LookRotation(currentDirection, transform.up), 0.15f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(currentDirection, transform.up), 0.15f);
     }
 
+    // Move to the next point in path
     private void MoveToPoint()
     {
+        rigidBody.isKinematic = true;
+
         // Move one step towards current point
         float step = speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, path[0], step);
@@ -107,75 +87,60 @@ public class ShipHandler : MonoBehaviour
         {
             // Delete point if reached
             path.RemoveAt(0);
-
-            // Recalculate line renderer
-            DrawLines();
         }
         else
         {
-            // Save current direction
+            // Save ccurrent direction
             currentDirection = (path[0] - transform.position).normalized * speed;
 
             // Face right direction
-            transform.rotation = Quaternion.Slerp(transform.rotation,
-                Quaternion.LookRotation(currentDirection, transform.up), 0.15f);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(currentDirection, transform.up), 0.15f);
         }
     }
 
-    private void DrawLines()
-    {
-        lineRenderer.positionCount = path.Count;
-        lineRenderer.SetPositions(path.ToArray());
-    }
-
-    public void AddPointToPath(Vector3 point)
-    {
-        path.Add(point);
-        DrawLines();
-    }
-
-    private void RecordPath()
-    {
-        if (Input.GetMouseButton(0) && clickedObject && Input.touchCount == 0)
-        {
-            Vector3 point;
-            // Add mouse coordinates as a point to path
-            point = camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, camera.transform.position.y - transform.position.y));
-
-            path.Add(point);
-            DrawLines();
-        }
-        else if (clickedObject)
-        {
-            // Mouse released so no more adding points
-            clickedObject = false;
-        }
-    }
-
-    public void SetFingerId(int id)
-    {
-        path.Clear();
-        fingerId = id;
-    }
-
-    public int GetFingerId()
-    {
-        return fingerId;
-    }
-
-    public void ResetFingerId()
-    {
-        fingerId = -1;
-    }
-
-    public Color ShipColor
-    {
-        get { return gameObject.GetComponent<MeshRenderer>().material.color; }
-        set { gameObject.GetComponent<MeshRenderer>().material.color = value; }
-    }
-
+    // Setter for speed
     public float Speed
     {
         set { speed = value; }
     }
+
+    // Getter and setter for fingerId
+    public int FingerId
+    {
+        get { return fingerId; }
+        set { fingerId = value; }
+    }
+   
+    // Setter for currentDirection
+    public Vector3 CurrentDirection
+    {
+        set { currentDirection = value; }
+    }
+
+    // Adds a point to the path and redraws the path
+    public void AddPointToPath(Vector3 point)
+    {
+        path.Add(point);
+    }
+    
+    // Clear the path
+    public void ClearPath()
+    {
+        path.Clear();
+    }
 }
+
+// Class for a Vector3 List that syncs to clients
+public class SyncListVector : SyncList<Vector3> {
+     protected override void SerializeItem(NetworkWriter writer, Vector3 item)
+     {
+         writer.Write(item);
+     }
+
+     protected override Vector3 DeserializeItem(NetworkReader reader)
+     {
+         return reader.ReadVector3();
+     }
+ }
+
+
