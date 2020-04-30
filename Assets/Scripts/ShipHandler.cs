@@ -10,6 +10,7 @@ public class ShipHandler : NetworkBehaviour
     private Rigidbody rigidBody;
     private Vector3 currentDirection;
     [SerializeField] private float speed = 2f;
+    [SerializeField] private GameObject explosionPrefab;
 
     // Register components on start
     void Start()
@@ -96,6 +97,29 @@ public class ShipHandler : NetworkBehaviour
             // Face right direction
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(currentDirection, transform.up), 0.15f);
         }
+    }
+
+    // Called when ship trigger collider
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Ship")
+        {
+            PlayExplosion();
+            Destroy(gameObject);
+        }
+        else if (other.tag == "Landing Pad")
+        {
+            Debug.Log("Landed ship");
+            Destroy(gameObject);
+        }
+    }
+
+    // Spawns, plays and destroys the explosion at ships position
+    private void PlayExplosion()
+    {
+        GameObject explosion = Instantiate(explosionPrefab, transform.position, transform.rotation);
+        NetworkServer.Spawn(explosion);
+        Destroy(explosion, 2f);
     }
 
     // Setter for speed

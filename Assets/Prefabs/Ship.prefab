@@ -92,8 +92,8 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8224058340625136076}
-  m_Material: {fileID: 13400000, guid: 1b582025ace184249ad9ee073d2f8a1f, type: 2}
-  m_IsTrigger: 0
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -279,3 +279,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  explosionPrefab: {fileID: 3867899499509180125, guid: b299b0572d88d714cb4a2dfd960e0fc4,
+    type: 3}
