@@ -102,12 +102,17 @@ public class ShipHandler : NetworkBehaviour
     // Called when ship trigger collider
     private void OnTriggerEnter(Collider other)
     {
+        if (!isServer)
+        {
+            return;
+        }
+        
         if (other.tag == "Ship")
         {
             PlayExplosion();
             Destroy(gameObject);
         }
-        else if (other.tag == "Landing Pad")
+        else if (other.tag == "CurrentPad")
         {
             Debug.Log("Landed ship");
             Destroy(gameObject);
