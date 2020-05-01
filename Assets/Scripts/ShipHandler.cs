@@ -11,32 +11,7 @@ public class ShipHandler : NetworkBehaviour
     private Vector3 currentDirection;
     [SerializeField] private float speed = 2f;
     [SerializeField] private GameObject explosionPrefab;
-
-    // Register components on start
-    void Start()
-    {
-        lineRenderer = GetComponent<LineRenderer>();
-
-        if (!isServer)
-        {
-            return;
-        }
-
-        rigidBody = GetComponent<Rigidbody>();
-    }
-    
-    // Update movement
-    void Update()
-    {
-        DrawLines();
-
-        if (!isServer)
-        {
-            return;
-        }
-
-        HandleMovement();
-    }
+    [SyncVar] private Color shipColor;
 
     // Renders the current path with lines
     private void DrawLines()
@@ -127,6 +102,12 @@ public class ShipHandler : NetworkBehaviour
         Destroy(explosion, 2f);
     }
 
+    // Setter for color
+    public Color ShipColor
+    {
+        set { shipColor = value; }
+    }
+
     // Setter for speed
     public float Speed
     {
@@ -156,6 +137,33 @@ public class ShipHandler : NetworkBehaviour
     public void ClearPath()
     {
         path.Clear();
+    }
+
+    // Register components on start
+    void Start()
+    {
+        lineRenderer = GetComponent<LineRenderer>();
+        GetComponent<MeshRenderer>().material.color = shipColor;
+
+        if (!isServer)
+        {
+            return;
+        }
+
+        rigidBody = GetComponent<Rigidbody>();
+    }
+    
+    // Update movement
+    void Update()
+    {
+        DrawLines();
+
+        if (!isServer)
+        {
+            return;
+        }
+
+        HandleMovement();
     }
 }
 

@@ -18,6 +18,7 @@ public class LandingPadHandler : NetworkBehaviour
         nextPad.GetComponent<MeshRenderer>().material.color = nextPadColor;
     }
 
+    [Server]
     // Gets random pad colors and registers them
     private void RegisterPadColors()
     {
@@ -27,14 +28,10 @@ public class LandingPadHandler : NetworkBehaviour
         ColorCoordinator.RegisterPadColor(nextPadColor);
     }
 
-    // Registers colors if server and assings pad start colors
+    // Registers start colors if server and assigns pad start colors
     void Start()
     {
-        if (isServer)
-        {
-            RegisterPadColors();
-        }
-
+        RegisterPadColors();
         AssignPadColors();
     }
 }

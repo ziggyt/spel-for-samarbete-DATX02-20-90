@@ -87,7 +87,7 @@ public class Spawner : NetworkBehaviour
     {
         SpawnEntity();
         
-        float randomTime = UnityEngine.Random.Range(minSpawnTime, maxSpawnTime);
+        float randomTime = Random.Range(minSpawnTime, maxSpawnTime);
         Invoke("RandomSpawn", randomTime);
     }
 
@@ -106,6 +106,7 @@ public class Spawner : NetworkBehaviour
             ShipHandler shipHandler = entity.GetComponent<ShipHandler>();
             shipHandler.CurrentDirection = CalculateStartVelocity(entity);
             shipHandler.Speed = speed;
+            shipHandler.ShipColor = ColorCoordinator.GetRandomPadColor();
         }
         else
         {
@@ -142,6 +143,8 @@ public class Spawner : NetworkBehaviour
     // Called on server start
     public override void OnStartServer()
     {
+        if (!isServer) return;
+
         CalculateEdges();
 
         // Initial spawn
