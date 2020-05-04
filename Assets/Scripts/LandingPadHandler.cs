@@ -22,10 +22,11 @@ public class LandingPadHandler : NetworkBehaviour
     // Gets random pad colors and registers them
     private void RegisterPadColors()
     {
-        currentPadColor = ColorCoordinator.GetRandomColor();
-        nextPadColor = ColorCoordinator.GetRandomColor();
-        ColorCoordinator.RegisterPadColor(currentPadColor);
-        ColorCoordinator.RegisterPadColor(nextPadColor);
+        ColorCoordinator colorCoordinator = FindObjectOfType<ColorCoordinator>();
+        currentPadColor = colorCoordinator.GetRandomColor();
+        nextPadColor = colorCoordinator.GetRandomColor();
+        colorCoordinator.RegisterPadColor(currentPadColor);
+        colorCoordinator.RegisterPadColor(nextPadColor);
     }
 
     // Registers start colors if server and assigns pad start colors

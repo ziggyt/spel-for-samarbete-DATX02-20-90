@@ -106,7 +106,8 @@ public class Spawner : NetworkBehaviour
             ShipHandler shipHandler = entity.GetComponent<ShipHandler>();
             shipHandler.CurrentDirection = CalculateStartVelocity(entity);
             shipHandler.Speed = speed;
-            shipHandler.ShipColor = ColorCoordinator.GetRandomPadColor();
+            ColorCoordinator colorCoordinator = FindObjectOfType<ColorCoordinator>();
+            shipHandler.ShipColor = colorCoordinator.GetRandomPadColor();
         }
         else
         {
