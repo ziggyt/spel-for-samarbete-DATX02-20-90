@@ -89,6 +89,8 @@ public class ShipHandler : NetworkBehaviour
         }
         else if (other.tag == "CurrentPad")
         {
+            // TODO: Get pad color and check if its the same, if it is increase score else play explosion
+            Color padColor = other.gameObject.GetComponent<MeshRenderer>().material.color;
             Debug.Log("Landed ship");
             Destroy(gameObject);
         }
