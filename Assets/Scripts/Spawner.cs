@@ -16,6 +16,7 @@ public class Spawner : NetworkBehaviour
     [SerializeField] private float speed = 5f;
     [SerializeField] private GameObject prefab;
     [SerializeField] private Transform plane;
+    [SerializeField] private bool isActive = false;
 
     private enum SpawnSide
     {
