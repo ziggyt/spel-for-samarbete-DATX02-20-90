@@ -39,9 +39,6 @@ public class ColorCoordinator : NetworkBehaviour
     // Registers a color to the list
     public void RegisterPadColor(Color color)
     {
-        if (!registeredPadColors.Contains(color))
-        {
-            registeredPadColors.Add(color);
-        }
+        registeredPadColors.Add(color);
     }
 }
