@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b6731d1bdbea86447abe3d8f191d6040, type: 2}
+  - {fileID: 0}
   - {fileID: 2100000, guid: 293c49ee293424d44ac2e09cdbb6113d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -89,7 +89,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4273887521515585394}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 4.9230747, y: 8.922297, z: 4.2635098}
@@ -199,6 +199,7 @@ GameObject:
   - component: {fileID: 462222610416773238}
   - component: {fileID: 4559610306413864613}
   - component: {fileID: 2564614286746260231}
+  - component: {fileID: 6220676683941888945}
   m_Layer: 0
   m_Name: Landing Pad
   m_TagString: Untagged
@@ -272,6 +273,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPad: {fileID: 4273887521515585394}
   nextPad: {fileID: 6907008022285690976}
+--- !u!54 &6220676683941888945
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6350153417118475108}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &6907008022285690976
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,7 +348,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b6731d1bdbea86447abe3d8f191d6040, type: 2}
+  - {fileID: 0}
   - {fileID: 2100000, guid: 293c49ee293424d44ac2e09cdbb6113d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0

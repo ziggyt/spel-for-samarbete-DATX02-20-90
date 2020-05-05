@@ -82,16 +82,28 @@ public class ShipHandler : NetworkBehaviour
             return;
         }
         
-        if (other.tag == "Ship")
+        if (isServer && other.tag == "Ship")
         {
             PlayExplosion();
             Destroy(gameObject);
         }
-        else if (other.tag == "CurrentPad")
+        else if (isServer && other.tag == "CurrentPad")
         {
-            // TODO: Get pad color and check if its the same, if it is increase score else play explosion
-            Color padColor = other.gameObject.GetComponent<MeshRenderer>().material.color;
-            Debug.Log("Landed ship");
+            GameObject pad = other.gameObject;
+            Color padColor = pad.GetComponent<MeshRenderer>().material.color;
+            if (padColor == shipColor)
+            {
+                // TODO: Add points and maybe some nice particle effect
+
+                // Change color of current and next pad
+                LandingPadHandler padHandler = pad.GetComponentInParent<LandingPadHandler>();
+                padHandler.NewPadColors(padColor);
+            }
+            else
+            {
+                PlayExplosion();
+                // TODO: Detract points or something
+            }
             Destroy(gameObject);
         }
     }

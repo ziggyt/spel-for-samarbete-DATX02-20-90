@@ -8,31 +8,67 @@ public class LandingPadHandler : NetworkBehaviour
     // Variables
     [SerializeField] private GameObject currentPad;
     [SerializeField] private GameObject nextPad;
-    [SyncVar] private Color currentPadColor;
-    [SyncVar] private Color nextPadColor;
+    private Color currentPadColor;
+    private Color nextPadColor;
+    private ColorCoordinator colorCoordinator;
 
-    // Assigns the synced pad colors
-    private void AssignPadColors()
+    [Server]
+    private void AssignPadColors(Color currentColor, Color nextColor)
     {
-        currentPad.GetComponent<MeshRenderer>().material.color = currentPadColor;
-        nextPad.GetComponent<MeshRenderer>().material.color = nextPadColor;
+        currentPadColor = currentColor;
+        nextPadColor = nextColor;
+        currentPad.GetComponent<MeshRenderer>().material.color = currentColor;
+        nextPad.GetComponent<MeshRenderer>().material.color = nextColor;
     }
 
     [Server]
-    // Gets random pad colors and registers them
-    private void RegisterPadColors()
+    private Color RegisterPadColor()
     {
-        ColorCoordinator colorCoordinator = FindObjectOfType<ColorCoordinator>();
-        currentPadColor = colorCoordinator.GetRandomColor();
-        nextPadColor = colorCoordinator.GetRandomColor();
-        colorCoordinator.RegisterPadColor(currentPadColor);
-        colorCoordinator.RegisterPadColor(nextPadColor);
+        Color padColor = colorCoordinator.GetRandomColor();
+        colorCoordinator.RegisterPadColor(padColor);
+        return padColor;
+    }
+
+    // Deregister color from coordinator
+    [Server]
+    private void DeregisterPadColor(Color color)
+    {
+        colorCoordinator.DeregisterPadColor(color);
+    }
+
+    [Server]
+    // Deregister and assign new pad colors
+    public void NewPadColors(Color oldColor)
+    {
+        DeregisterPadColor(oldColor);
+        currentPadColor = RegisterPadColor();
+        nextPadColor = RegisterPadColor();
+        AssignPadColors(currentPadColor, nextPadColor);
+        RpcAssignClientPadColors(currentPadColor, nextPadColor);
+    }
+
+    [ClientRpc]
+    private void RpcAssignClientPadColors(Color currentColor, Color nextColor)
+    {
+        currentPad.GetComponent<MeshRenderer>().material.color = currentColor;
+        nextPad.GetComponent<MeshRenderer>().material.color = nextColor;
+        CmdServerMsg("ClientRpc call");
+    }
+
+    [Command]
+    private void CmdServerMsg(string msg)
+    {
+        Debug.Log(msg);
     }
 
     // Registers start colors if server and assigns pad start colors
     void Start()
     {
-        RegisterPadColors();
-        AssignPadColors();
+        if (!isServer) return;
+        colorCoordinator = FindObjectOfType<ColorCoordinator>();
+        currentPadColor = RegisterPadColor();
+        nextPadColor = RegisterPadColor();
+        AssignPadColors(currentPadColor, nextPadColor);
+        RpcAssignClientPadColors(currentPadColor, nextPadColor);
     }
 }
