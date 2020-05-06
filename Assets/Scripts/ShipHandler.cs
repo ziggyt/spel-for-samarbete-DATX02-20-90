@@ -82,12 +82,12 @@ public class ShipHandler : NetworkBehaviour
             return;
         }
         
-        if (isServer && other.tag == "Ship")
+        if (other.tag == "Ship" || other.tag == "Meteor" || other.tag == "Wall")
         {
             PlayExplosion();
             Destroy(gameObject);
         }
-        else if (isServer && other.tag == "CurrentPad")
+        else if (other.tag == "CurrentPad")
         {
             GameObject pad = other.gameObject;
             Color padColor = pad.GetComponent<MeshRenderer>().material.color;
@@ -102,7 +102,7 @@ public class ShipHandler : NetworkBehaviour
             else
             {
                 PlayExplosion();
-                // TODO: Detract points or something
+                // TODO: Detract life
             }
             Destroy(gameObject);
         }
