@@ -1,8 +1,14 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Materials/Ship Materials/Aircraft_Body_BlackBue.mat.meta
 guid: b789f3731bb23464ca2c9b54455bd3cc
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000
+=======
+guid: b299b0572d88d714cb4a2dfd960e0fc4
+PrefabImporter:
+  externalObjects: {}
+>>>>>>> master:Assets/Prefabs/Explosion.prefab.meta
   userData: 
   assetBundleName: 
   assetBundleVariant: 

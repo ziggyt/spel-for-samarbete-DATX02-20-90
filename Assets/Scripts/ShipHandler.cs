@@ -11,7 +11,36 @@ public class ShipHandler : NetworkBehaviour
     private Vector3 currentDirection;
     [SerializeField] private float speed = 2f;
     [SerializeField] private GameObject explosionPrefab;
+<<<<<<< HEAD
     [SyncVar] private Color shipColor;
+=======
+
+    // Register components on start
+    void Start()
+    {
+        lineRenderer = GetComponent<LineRenderer>();
+
+        if (!isServer)
+        {
+            return;
+        }
+
+        rigidBody = GetComponent<Rigidbody>();
+    }
+    
+    // Update movement
+    void Update()
+    {
+        DrawLines();
+
+        if (!isServer)
+        {
+            return;
+        }
+
+        HandleMovement();
+    }
+>>>>>>> master
 
     // Renders the current path with lines
     private void DrawLines()
@@ -77,16 +106,21 @@ public class ShipHandler : NetworkBehaviour
     // Called when ship trigger collider
     private void OnTriggerEnter(Collider other)
     {
+<<<<<<< HEAD
         if (!isServer)
         {
             return;
         }
         
         if (isServer && other.tag == "Ship")
+=======
+        if (other.tag == "Ship")
+>>>>>>> master
         {
             PlayExplosion();
             Destroy(gameObject);
         }
+<<<<<<< HEAD
         else if (isServer && other.tag == "CurrentPad")
         {
             GameObject pad = other.gameObject;
@@ -104,6 +138,11 @@ public class ShipHandler : NetworkBehaviour
                 PlayExplosion();
                 // TODO: Detract points or something
             }
+=======
+        else if (other.tag == "Landing Pad")
+        {
+            Debug.Log("Landed ship");
+>>>>>>> master
             Destroy(gameObject);
         }
     }
@@ -116,12 +155,15 @@ public class ShipHandler : NetworkBehaviour
         Destroy(explosion, 2f);
     }
 
+<<<<<<< HEAD
     // Setter for color
     public Color ShipColor
     {
         set { shipColor = value; }
     }
 
+=======
+>>>>>>> master
     // Setter for speed
     public float Speed
     {
