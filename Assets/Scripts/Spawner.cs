@@ -4,12 +4,12 @@ using UnityEngine.Networking;
 public class Spawner : NetworkBehaviour
 {
     // Variables
-    private float flightHeight = 10f;
     private float planeBottomEdge;
     private float planeLeftEdge;
     private float planeRightEdge;
     private float planeTopEdge;
     private SpawnSide spawnSide;
+    [SerializeField] private float flightHeight = 10f;
     [SerializeField] private float maxSpawnTime = 20f;
     [SerializeField] private float minSpawnTime = 5f;
     [SerializeField] private float spawnOffset = 20f;
