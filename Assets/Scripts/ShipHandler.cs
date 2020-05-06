@@ -193,5 +193,3 @@ public class SyncListVector : SyncList<Vector3> {
          return reader.ReadVector3();
      }
  }
-
-
