@@ -23,7 +23,7 @@ public class MouseManager : NetworkBehaviour
 
         if (ship != null && Input.GetMouseButton(0))
         {
-            Vector3 point = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 90f)); // TODO: Make z-position dynamic
+            Vector3 point = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 98f)); // TODO: Make z-position dynamic
             CmdAddPointToPath(ship.GetComponent<NetworkIdentity>(), point);
         }
         else

@@ -11,32 +11,7 @@ public class ShipHandler : NetworkBehaviour
     private Vector3 currentDirection;
     [SerializeField] private float speed = 2f;
     [SerializeField] private GameObject explosionPrefab;
-
-    // Register components on start
-    void Start()
-    {
-        lineRenderer = GetComponent<LineRenderer>();
-
-        if (!isServer)
-        {
-            return;
-        }
-
-        rigidBody = GetComponent<Rigidbody>();
-    }
-    
-    // Update movement
-    void Update()
-    {
-        DrawLines();
-
-        if (!isServer)
-        {
-            return;
-        }
-
-        HandleMovement();
-    }
+    [SyncVar] private Color shipColor;
 
     // Renders the current path with lines
     private void DrawLines()
@@ -102,14 +77,33 @@ public class ShipHandler : NetworkBehaviour
     // Called when ship trigger collider
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Ship")
+        if (!isServer)
+        {
+            return;
+        }
+        
+        if (other.tag == "Ship" || other.tag == "Meteor" || other.tag == "Wall")
         {
             PlayExplosion();
             Destroy(gameObject);
         }
-        else if (other.tag == "Landing Pad")
+        else if (other.tag == "CurrentPad")
         {
-            Debug.Log("Landed ship");
+            GameObject pad = other.gameObject;
+            Color padColor = pad.GetComponent<MeshRenderer>().material.color;
+            if (padColor == shipColor)
+            {
+                // TODO: Add points and maybe some nice particle effect
+
+                // Change color of current and next pad
+                LandingPadHandler padHandler = pad.GetComponentInParent<LandingPadHandler>();
+                padHandler.NewPadColors(padColor);
+            }
+            else
+            {
+                PlayExplosion();
+                // TODO: Detract life
+            }
             Destroy(gameObject);
         }
     }
@@ -120,6 +114,12 @@ public class ShipHandler : NetworkBehaviour
         GameObject explosion = Instantiate(explosionPrefab, transform.position, transform.rotation);
         NetworkServer.Spawn(explosion);
         Destroy(explosion, 2f);
+    }
+
+    // Setter for color
+    public Color ShipColor
+    {
+        set { shipColor = value; }
     }
 
     // Setter for speed
@@ -152,6 +152,33 @@ public class ShipHandler : NetworkBehaviour
     {
         path.Clear();
     }
+
+    // Register components on start
+    void Start()
+    {
+        lineRenderer = GetComponent<LineRenderer>();
+        GetComponent<MeshRenderer>().material.color = shipColor;
+
+        if (!isServer)
+        {
+            return;
+        }
+
+        rigidBody = GetComponent<Rigidbody>();
+    }
+    
+    // Update movement
+    void Update()
+    {
+        DrawLines();
+
+        if (!isServer)
+        {
+            return;
+        }
+
+        HandleMovement();
+    }
 }
 
 // Class for a Vector3 List that syncs to clients
@@ -166,5 +193,3 @@ public class SyncListVector : SyncList<Vector3> {
          return reader.ReadVector3();
      }
  }
-
-

@@ -4,12 +4,12 @@ using UnityEngine.Networking;
 public class Spawner : NetworkBehaviour
 {
     // Variables
-    private float flightHeight = 10f;
     private float planeBottomEdge;
     private float planeLeftEdge;
     private float planeRightEdge;
     private float planeTopEdge;
     private SpawnSide spawnSide;
+    [SerializeField] private float flightHeight = 10f;
     [SerializeField] private float maxSpawnTime = 20f;
     [SerializeField] private float minSpawnTime = 5f;
     [SerializeField] private float spawnOffset = 20f;
@@ -88,7 +88,7 @@ public class Spawner : NetworkBehaviour
     {
         SpawnEntity();
         
-        float randomTime = UnityEngine.Random.Range(minSpawnTime, maxSpawnTime);
+        float randomTime = Random.Range(minSpawnTime, maxSpawnTime);
         Invoke("RandomSpawn", randomTime);
     }
 
@@ -107,6 +107,8 @@ public class Spawner : NetworkBehaviour
             ShipHandler shipHandler = entity.GetComponent<ShipHandler>();
             shipHandler.CurrentDirection = CalculateStartVelocity(entity);
             shipHandler.Speed = speed;
+            ColorCoordinator colorCoordinator = FindObjectOfType<ColorCoordinator>();
+            shipHandler.ShipColor = colorCoordinator.GetRandomPadColor();
         }
         else
         {
@@ -143,6 +145,8 @@ public class Spawner : NetworkBehaviour
     // Called on server start
     public override void OnStartServer()
     {
+        if (!isServer) return;
+
         CalculateEdges();
 
         // Initial spawn
