@@ -95,6 +95,11 @@ public class Spawner : NetworkBehaviour
     // Spawns an object in the world at random edge position and random angle
     private void SpawnEntity()
     {
+        if (!isActive)
+        {
+            return;
+        }
+
         Vector3 startPosition = GenerateStartLocation();
         Quaternion startRotation = GenerateStartRotation(startPosition);
         

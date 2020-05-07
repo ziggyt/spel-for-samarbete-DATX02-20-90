@@ -105,6 +105,7 @@ public class ShipHandler : NetworkBehaviour
                 // TODO: Detract life
             }
             Destroy(gameObject);
+            
         }
     }
 

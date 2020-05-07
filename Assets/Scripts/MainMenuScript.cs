@@ -6,10 +6,11 @@ using UnityEngine.SceneManagement;
 public class MainMenuScript : MonoBehaviour
 {
     
-    private ArrayList _networkComponents = new ArrayList();
+    //private ArrayList _networkComponents = new ArrayList();
 
     public void PlayGame()
     {
+        /*
         _networkComponents.AddRange(GameObject.FindGameObjectsWithTag("NetworkComponent"));
         
         Debug.Log(_networkComponents.Count);
@@ -18,10 +19,13 @@ public class MainMenuScript : MonoBehaviour
         {
             networkComponent.SetActive(true);
         }
+        */
         
         
+        GameObject.Find("Spawners").SetActive(true);
         Debug.Log("Enabled ship spawner!");
         GameObject.Find("MainMenuCanvas").SetActive(false);
+        Debug.Log("Closed main menu");
     }
 
     public void ChangeSettings()
