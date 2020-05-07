@@ -25,6 +25,7 @@ public class MainMenuScript : NetworkDiscovery
         // kanske flytta networkdiscover till en annan ny klass för att kunna extenda monobehaviour igen
         // i update, kolla hela tiden om den har fått en broadcast
         // isf joina
+        // annars vid PlayGame startserver
         
         Debug.Log("Discovery started");
     }
