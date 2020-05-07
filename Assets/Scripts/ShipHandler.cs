@@ -1,5 +1,6 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class ShipHandler : NetworkBehaviour
 {
@@ -94,7 +95,8 @@ public class ShipHandler : NetworkBehaviour
             if (padColor == shipColor)
             {
                 // TODO: Add points and maybe some nice particle effect
-
+                ScoreManager.scoreValue += 1;
+                
                 // Change color of current and next pad
                 LandingPadHandler padHandler = pad.GetComponentInParent<LandingPadHandler>();
                 padHandler.NewPadColors(padColor);
