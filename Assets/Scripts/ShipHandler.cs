@@ -158,8 +158,9 @@ public class ShipHandler : NetworkBehaviour
     // Register components on start
     void Start()
     {
-        lineRenderer = GetComponent<LineRenderer>();
         GetComponent<MeshRenderer>().material.color = shipColor;
+        lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.material.color = shipColor;
 
         if (!isServer)
         {
