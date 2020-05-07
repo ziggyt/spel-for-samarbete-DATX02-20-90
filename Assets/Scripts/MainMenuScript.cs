@@ -1,26 +1,37 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
 
 
-public class MainMenuScript : MonoBehaviour
+public class MainMenuScript : NetworkDiscovery
 {
     public NetworkDiscovery _networkDiscovery;
     public NetworkManager _networkManager;
     
     private string IP;
-
-
     private void Awake()
     {
         _networkDiscovery.Initialize();
-        _networkDiscovery.StartAsClient();
+        _networkDiscovery.StartAsClient(); 
+        //TODO en host en client debug?
+        //kanske börja kolla detta i en splash screen som visas innan
+        // if broadcast recieved join 
+        // else startserver 
+        // problem om alla har igång startskärmen 
+        
+        // kanske flytta networkdiscover till en annan ny klass för att kunna extenda monobehaviour igen
+        // i update, kolla hela tiden om den har fått en broadcast
+        // isf joina
         
         Debug.Log("Discovery started");
+    }
+
+    private void FixedUpdate()
+    {
+        
     }
 
     public void PlayGame()
@@ -30,6 +41,7 @@ public class MainMenuScript : MonoBehaviour
         Debug.Log(IP);
         
         _networkManager.StartHost();
+        
 
         GameObject.Find("MainMenuCanvas").SetActive(false);
         Debug.Log("Closed main menu");
@@ -40,10 +52,11 @@ public class MainMenuScript : MonoBehaviour
         Debug.Log("Settings management is not implemented yet");
     }
 
-    void OnBroadCastRecieved()
+    public override void OnReceivedBroadcast(string fromAddress, string data)
     {
-        
-        
+        //base.OnReceivedBroadcast(fromAddress, data);
+        Debug.Log(fromAddress);
+        Debug.Log(data);
     }
 }
 
