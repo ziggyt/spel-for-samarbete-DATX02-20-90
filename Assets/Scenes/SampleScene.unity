@@ -204,12 +204,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 201232539}
-        m_MethodName: PlayGame
+      - m_Target: {fileID: 201232537}
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -259,7 +259,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 112063882}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: a59d572aaca043f4d8a797c5e85fe72b, type: 2}
   m_CullingMode: 0
@@ -442,8 +442,41 @@ MonoBehaviour:
   m_ShowGUI: 0
   m_OffsetX: 0
   m_OffsetY: 0
+  m_HostId: -1
+  m_Running: 0
+  m_IsServer: 0
+  m_IsClient: 0
+  m_MsgOutBuffer: []
+  m_MsgInBuffer: []
+  m_DefaultTopology:
+    m_DefConfig:
+      m_ResendTimeout: 1200
+      m_DisconnectTimeout: 2000
+      m_ConnectTimeout: 2000
+      m_MinUpdateTimeout: 10
+      m_PingTimeout: 500
+      m_ReducedPingTimeout: 100
+      m_AllCostTimeout: 20
+      m_NetworkDropThreshold: 5
+      m_OverflowDropThreshold: 5
+      m_MaxConnectionAttempt: 10
+      m_AckDelay: 33
+      m_SendDelay: 10
+      m_AcksType: 1
+      m_UsePlatformSpecificProtocols: 0
+      m_InitialBandwidth: 0
+      m_BandwidthPeakFactor: 2
+      m_UdpSocketReceiveBufferMaxSize: 0
+      m_SSLCertFilePath: 
+      m_SSLPrivateKeyFilePath: 
+      m_SSLCAFilePath: 
+      m_Channels: []
+    m_MaxDefConnections: 0
+    m_SpecialConnections: []
+    m_MessagePoolSizeGrowthFactor: 0.75
   _networkDiscovery: {fileID: 956626677}
   _networkManager: {fileID: 812203432}
+  IP: 
 --- !u!1 &261490486
 GameObject:
   m_ObjectHideFlags: 0
@@ -1442,7 +1475,7 @@ MonoBehaviour:
   m_BroadcastKey: 2222
   m_BroadcastVersion: 1
   m_BroadcastSubVersion: 1
-  m_BroadcastInterval: 1000
+  m_BroadcastInterval: 500
   m_UseNetworkManager: 1
   m_BroadcastData: HELLO
   m_ShowGUI: 0
