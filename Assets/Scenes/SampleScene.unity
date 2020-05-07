@@ -1144,7 +1144,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
@@ -1891,8 +1891,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flightHeight: 5
-  maxSpawnTime: 5
-  minSpawnTime: 1
+  maxSpawnTime: 30
+  minSpawnTime: 25
   spawnOffset: 20
   speed: 15
   prefab: {fileID: 1797549254315602, guid: f389977f3e24d09428c7f898dea233ca, type: 3}
@@ -2050,8 +2050,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flightHeight: 2
-  maxSpawnTime: 5
-  minSpawnTime: 1
+  maxSpawnTime: 10
+  minSpawnTime: 2
   spawnOffset: 50
   speed: 10
   prefab: {fileID: 6487564158630302054, guid: ac8148bb9b6f22b4ab3884827fbb0cb9, type: 3}
