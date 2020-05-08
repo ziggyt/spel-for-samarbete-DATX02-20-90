@@ -32,6 +32,7 @@ public class MainMenuScript : MonoBehaviour
             _discoveryHelper.initDiscoveryHelper();
         }
         
+        
         Debug.Log("Discovery helper: " + _discoveryHelper.running);
         
         if (_discoveryHelper.HasFoundBroadcast && !_hasConnected)
