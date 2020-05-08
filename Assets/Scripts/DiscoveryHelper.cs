@@ -8,6 +8,7 @@ public class DiscoveryHelper : NetworkDiscovery
 {
     bool hasFoundBroadcast = false;
     String serverIp = String.Empty;
+    Random random = new Random();
 
 
     private void Awake()
@@ -16,7 +17,8 @@ public class DiscoveryHelper : NetworkDiscovery
         StartAsClient();
         showGUI = false;
         broadcastInterval = 250;
-        useNetworkManager = true; //todo om något går fel kolla denna
+        useNetworkManager = true;
+        broadcastPort = random.Next(40000, 50000);
     }
 
     public override void OnReceivedBroadcast(string fromAddress, string data)
