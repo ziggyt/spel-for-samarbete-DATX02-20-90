@@ -14,20 +14,19 @@ public class DiscoveryHelper : NetworkDiscovery
     {
         Initialize();
         StartAsClient();
-       // broadcastPort = 
         showGUI = false;
         broadcastInterval = 250;
-        //useNetworkManager = true; //todo om något går fel kolla denna
+        useNetworkManager = true; //todo om något går fel kolla denna
     }
 
     public override void OnReceivedBroadcast(string fromAddress, string data)
     {
         hasFoundBroadcast = true;
-        serverIp = fromAddress;
+        serverIp = fromAddress.Replace("::ffff:", "");
         
         base.OnReceivedBroadcast(fromAddress, data);
         
-        Debug.Log("Recieved broadcast from: " + fromAddress + " with data: " + data);
+        Debug.Log("Recieved broadcast from: " + serverIp + " with data: " + data);
     }
     
     
