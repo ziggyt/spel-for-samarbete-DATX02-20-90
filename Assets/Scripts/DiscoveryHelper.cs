@@ -27,7 +27,8 @@ public class DiscoveryHelper : NetworkDiscovery
         
         Debug.Log("Recieved broadcast from: " + serverIp + " with data: " + data);
         
-        StopBroadcast();
+        //stop broadcast
+        
     }
 
     public void initDiscoveryHelper()

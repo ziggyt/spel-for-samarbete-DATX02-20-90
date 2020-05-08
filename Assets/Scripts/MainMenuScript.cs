@@ -19,6 +19,7 @@ public class MainMenuScript : MonoBehaviour
     private void Awake()
     {
         _discoveryHelper = gameObject.AddComponent<DiscoveryHelper>();
+        //NetworkServer.Reset();
 
     }
 
@@ -35,15 +36,21 @@ public class MainMenuScript : MonoBehaviour
         
         if (_discoveryHelper.HasFoundBroadcast && !_hasConnected)
         {
+            _discoveryHelper.StopAllCoroutines();
+            _discoveryHelper.StopBroadcast();
+            
             Debug.Log("Found host!");
             String IP = _discoveryHelper.ServerIp;
+            
+            connectionInfo.GetComponent<Text>().text = "Found host: " + IP;
+            
             //_networkManager.SetMatchHost(IP, 7777, false);
             _networkManager.networkAddress = IP;
             _networkManager.networkPort = 7777;
             _networkManager.StartClient();
+            
             Debug.Log("Connected to " + IP);
             _hasConnected = true;
-            connectionInfo.GetComponent<Text>().text = "Found host: " + IP;
             
             //connectionInfo.text = 
         }
@@ -53,12 +60,15 @@ public class MainMenuScript : MonoBehaviour
     {
         if (!_discoveryHelper.HasFoundBroadcast)
         {
-            NetworkServer.Reset();
+            connectionInfo.GetComponent<Text>().text = "Started host";
+            //NetworkServer.Reset();
+            _discoveryHelper.StopBroadcast();
+            
             _networkManager.StartHost();
             Debug.Log("Started host server");
             _discoveryHelper.StartAsServer();
             
-            //_discoveryHelper.StopBroadcast();
+            
             //_discoveryHelper.broadcastPort = 
             //Starthost vs startasserver?
             Debug.Log("Started broadcast on " + _networkManager.networkAddress + ":" + _discoveryHelper.broadcastPort);
