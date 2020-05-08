@@ -13,25 +13,33 @@ public class DiscoveryHelper : NetworkDiscovery
 
     private void Awake()
     {
-        Initialize();
-        StartAsClient();
-        showGUI = false;
-        broadcastInterval = 250;
-        useNetworkManager = true;
-        broadcastPort = random.Next(40000, 50000);
+        initDiscoveryHelper();
     }
-
+    
+    
+    
     public override void OnReceivedBroadcast(string fromAddress, string data)
     {
         hasFoundBroadcast = true;
         serverIp = fromAddress.Replace("::ffff:", "");
         
-        base.OnReceivedBroadcast(fromAddress, data);
+        //base.OnReceivedBroadcast(fromAddress, data);
         
         Debug.Log("Recieved broadcast from: " + serverIp + " with data: " + data);
+        
+        StopBroadcast();
     }
-    
-    
+
+    public void initDiscoveryHelper()
+    {
+        Initialize();
+        StartAsClient();
+        showGUI = false;
+        broadcastInterval = 250;
+        useNetworkManager = true;
+    }
+
+
 
     public string ServerIp => serverIp;
     public bool HasFoundBroadcast => hasFoundBroadcast;

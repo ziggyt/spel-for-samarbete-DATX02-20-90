@@ -25,6 +25,11 @@ public class MainMenuScript : MonoBehaviour
     private void Update()
     {
         hasFoundHostInfo.GetComponent<Text>().text = "Found host: " + _discoveryHelper.HasFoundBroadcast + " hasconnected: " + _hasConnected;
+
+        if (!_discoveryHelper.HasFoundBroadcast && !_discoveryHelper.running)
+        {
+            _discoveryHelper.initDiscoveryHelper();
+        }
         
         Debug.Log("Discovery helper: " + _discoveryHelper.running);
         
