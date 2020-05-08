@@ -20,9 +20,11 @@ public class MainMenuScript : MonoBehaviour
     {
         if (_discoveryHelper.HasFoundBroadcast && !_hasConnected)
         {
-            String IP = _discoveryHelper.ServerIp;
-            //_networkManager.SetMatchHost(IP, 7777, false);
             Debug.Log("Found host!");
+            String IP = _discoveryHelper.ServerIp;
+            _networkManager.SetMatchHost(IP, 7777, false);
+            _networkManager.StartClient();
+            Debug.Log("Connected to " + IP);
             _hasConnected = true;
         }
     }
@@ -34,7 +36,7 @@ public class MainMenuScript : MonoBehaviour
             _networkManager.StartHost();
             Debug.Log("Started host server");
             _discoveryHelper.StopBroadcast();
-            _discoveryHelper.StartAsServer();
+            _discoveryHelper.StartAsServer(); //Starthost vs startasserver?
             Debug.Log("Started broadcast on " + _networkManager.networkAddress + ":" + _networkManager.networkPort);
         }
 
