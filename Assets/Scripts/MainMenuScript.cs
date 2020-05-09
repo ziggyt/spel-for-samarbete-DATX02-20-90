@@ -12,6 +12,8 @@ public class MainMenuScript : MonoBehaviour
     private DiscoveryHelper _discoveryHelper;
     private bool _hasConnected = false;
     public NetworkManager _networkManager;
+    public Image buttonBackground;
+    public TextMeshProUGUI buttonText;
     //public GameObject connectionInfo;
 
 
@@ -46,6 +48,10 @@ public class MainMenuScript : MonoBehaviour
 
             //Debug.Log("Connected to " + IP);
             _hasConnected = true;
+            
+            buttonBackground.color = Color.blue;
+            buttonText.text = "Anslut till spel";
+
         }
     }
 
