@@ -12,7 +12,7 @@ public class MainMenuScript : MonoBehaviour
     private DiscoveryHelper _discoveryHelper;
     private bool _hasConnected = false;
     public NetworkManager _networkManager;
-    public GameObject connectionInfo;
+    //public GameObject connectionInfo;
 
 
     private void Awake()
@@ -53,7 +53,7 @@ public class MainMenuScript : MonoBehaviour
     {
         if (!_discoveryHelper.HasFoundBroadcast)
         {
-            connectionInfo.GetComponent<Text>().text = "Started host";
+            //connectionInfo.GetComponent<Text>().text = "Started host";
             //NetworkServer.Reset();
             _discoveryHelper.StopBroadcast();
 
