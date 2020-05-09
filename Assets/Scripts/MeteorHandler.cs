@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 
 public class MeteorHandler : NetworkBehaviour
 {
+    // Destroy if crash into wall
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Wall")

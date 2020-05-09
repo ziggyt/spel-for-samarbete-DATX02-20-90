@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ShipHandler : NetworkBehaviour
 {
@@ -12,6 +14,14 @@ public class ShipHandler : NetworkBehaviour
     [SerializeField] private float speed = 2f;
     [SerializeField] private GameObject explosionPrefab;
     [SyncVar] private Color shipColor;
+
+    // Execute death sequence
+    private void DeathSequence()
+    {
+        PlayExplosion();
+        HandleLives();
+        Destroy(gameObject);
+    }
 
     // Renders the current path with lines
     private void DrawLines()
@@ -27,6 +37,25 @@ public class ShipHandler : NetworkBehaviour
         }
 
         lineRenderer.SetPositions(pathArr);
+    }
+
+    // Decreases lives and checks for death
+    private void HandleLives()
+    {
+        LivesManager lv = FindObjectOfType<LivesManager>();
+        lv.RemoveLife();
+        if (lv.GetLives() <= 0)
+        {
+            // Game over
+            SceneManager.LoadScene(1);
+            RpcGameOver();
+        }
+    }
+
+    [ClientRpc]
+    private void RpcGameOver()
+    {
+        SceneManager.LoadScene(1);
     }
 
     // Handle movement based on path exist
@@ -82,30 +111,29 @@ public class ShipHandler : NetworkBehaviour
             return;
         }
         
-        if (other.tag == "Ship" || other.tag == "Meteor" || other.tag == "Wall")
-        {
-            PlayExplosion();
-            Destroy(gameObject);
-        }
-        else if (other.tag == "CurrentPad")
+        if (other.tag == "CurrentPad")
         {
             GameObject pad = other.gameObject;
             Color padColor = pad.GetComponent<MeshRenderer>().material.color;
             if (padColor == shipColor)
             {
                 // TODO: Add points and maybe some nice particle effect
-
+                ScoreManager.scoreValue += 1;
+                
                 // Change color of current and next pad
                 LandingPadHandler padHandler = pad.GetComponentInParent<LandingPadHandler>();
                 padHandler.NewPadColors(padColor);
+
+                Destroy(gameObject);
             }
             else
             {
-                PlayExplosion();
-                // TODO: Detract life
+                DeathSequence();
             }
-            Destroy(gameObject);
-            
+        }
+        else
+        {
+            DeathSequence();
         }
     }
 
@@ -157,8 +185,9 @@ public class ShipHandler : NetworkBehaviour
     // Register components on start
     void Start()
     {
-        lineRenderer = GetComponent<LineRenderer>();
         GetComponent<MeshRenderer>().material.color = shipColor;
+        lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.material.color = shipColor;
 
         if (!isServer)
         {
