@@ -8,8 +8,6 @@ public class DiscoveryHelper : NetworkDiscovery
 {
     bool hasFoundBroadcast = false;
     String serverIp = String.Empty;
-    Random random = new Random();
-
 
     private void Awake()
     {
@@ -22,13 +20,9 @@ public class DiscoveryHelper : NetworkDiscovery
     {
         hasFoundBroadcast = true;
         serverIp = fromAddress.Replace("::ffff:", "");
-        
-        //base.OnReceivedBroadcast(fromAddress, data);
-        
+
         Debug.Log("Recieved broadcast from: " + serverIp + " with data: " + data);
-        
-        //stop broadcast
-        
+
     }
 
     public void initDiscoveryHelper()

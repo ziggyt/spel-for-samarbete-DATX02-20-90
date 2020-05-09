@@ -81,32 +81,3 @@ public class MainMenuScript : MonoBehaviour
         Debug.Log("Settings management is not implemented yet");
     }
 }
-
-
-//TODO en host en client debug?
-//kanske börja kolla detta i en splash screen som visas innan
-// if broadcast recieved join 
-// else startserver 
-// problem om alla har igång startskärmen 
-
-// kanske flytta networkdiscover till en annan ny klass för att kunna extenda monobehaviour igen
-// i update, kolla hela tiden om den har fått en broadcast
-// isf joina
-// annars vid PlayGame startserver
-
-
-//private ArrayList _networkComponents = new ArrayList();
-
-/*
-  _networkComponents.AddRange(GameObject.FindGameObjectsWithTag("NetworkComponent"));
-  
-  Debug.Log(_networkComponents.Count);
-
-  foreach (GameObject networkComponent in _networkComponents)
-  {
-      networkComponent.SetActive(true);
-  }
-  
-  //        GameObject.Find("Spawners").SetActive(true);
-//        Debug.Log("Enabled ship spawner!");
-  */
