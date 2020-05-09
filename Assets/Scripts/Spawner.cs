@@ -16,6 +16,7 @@ public class Spawner : NetworkBehaviour
     [SerializeField] private float speed = 5f;
     [SerializeField] private GameObject prefab;
     [SerializeField] private Transform plane;
+    [SerializeField] private bool isActive = false;
 
     private enum SpawnSide
     {
@@ -94,6 +95,11 @@ public class Spawner : NetworkBehaviour
     // Spawns an object in the world at random edge position and random angle
     private void SpawnEntity()
     {
+        if (!isActive)
+        {
+            return;
+        }
+
         Vector3 startPosition = GenerateStartLocation();
         Quaternion startRotation = GenerateStartRotation(startPosition);
         
