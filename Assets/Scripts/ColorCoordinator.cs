@@ -5,14 +5,14 @@ using UnityEngine.Networking;
 public class ColorCoordinator : NetworkBehaviour
 {
     // Variables
-    // private Color lightBlue = new Color(0.0f,0.0f,1.0f,1.0f);
     private Color[] colors =
     {
         Color.red,
         Color.green,
-        Color.blue,
-        Color.yellow
+        Color.yellow,
+        new Color(0.0f,0.65f,1.0f) // Lighter version of blue
     };
+    
     private List<Color> registeredPadColors = new List<Color>();
 
     // Removes the first occurence of the registered color
