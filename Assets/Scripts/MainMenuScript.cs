@@ -12,7 +12,6 @@ public class MainMenuScript : MonoBehaviour
     private DiscoveryHelper _discoveryHelper;
     private bool _hasConnected = false;
     public NetworkManager _networkManager;
-    public GameObject hasFoundHostInfo;
     public GameObject connectionInfo;
 
 
@@ -40,7 +39,7 @@ public class MainMenuScript : MonoBehaviour
             //Debug.Log("Found host!");
             String IP = _discoveryHelper.ServerIp;
 
-            connectionInfo.GetComponent<Text>().text = "Found host: " + IP;
+            //connectionInfo.GetComponent<Text>().text = "Found host: " + IP;
             _networkManager.networkAddress = IP;
             _networkManager.networkPort = 7777;
             _networkManager.StartClient();
