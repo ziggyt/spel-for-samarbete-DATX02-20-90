@@ -5,14 +5,13 @@ using UnityEngine.Networking;
 public class ColorCoordinator : NetworkBehaviour
 {
     // Variables
+    // private Color lightBlue = new Color(0.0f,0.0f,1.0f,1.0f);
     private Color[] colors =
     {
         Color.red,
         Color.green,
         Color.blue,
-        Color.yellow,
-        Color.cyan,
-        Color.magenta
+        Color.yellow
     };
     private List<Color> registeredPadColors = new List<Color>();
 
