@@ -19,41 +19,34 @@ public class MainMenuScript : MonoBehaviour
     private void Awake()
     {
         _discoveryHelper = gameObject.AddComponent<DiscoveryHelper>();
-        //NetworkServer.Reset();
-
     }
 
     private void Update()
     {
-        hasFoundHostInfo.GetComponent<Text>().text = "HasFoundBroadcast: " + _discoveryHelper.HasFoundBroadcast + "\nHasConnected: " + _hasConnected;
+        //hasFoundHostInfo.GetComponent<Text>().text = "HasFoundBroadcast: " + _discoveryHelper.HasFoundBroadcast + "\nHasConnected: " + _hasConnected;
 
         if (!_discoveryHelper.HasFoundBroadcast && !_discoveryHelper.running)
         {
             _discoveryHelper.initDiscoveryHelper();
         }
-        
-        
-        Debug.Log("Discovery helper: " + _discoveryHelper.running);
-        
+
+        //Debug.Log("Discovery helper: " + _discoveryHelper.running);
+
         if (_discoveryHelper.HasFoundBroadcast && !_hasConnected)
         {
             _discoveryHelper.StopAllCoroutines();
             _discoveryHelper.StopBroadcast();
-            
-            Debug.Log("Found host!");
+
+            //Debug.Log("Found host!");
             String IP = _discoveryHelper.ServerIp;
-            
+
             connectionInfo.GetComponent<Text>().text = "Found host: " + IP;
-            
-            //_networkManager.SetMatchHost(IP, 7777, false);
             _networkManager.networkAddress = IP;
             _networkManager.networkPort = 7777;
             _networkManager.StartClient();
-            
-            Debug.Log("Connected to " + IP);
+
+            //Debug.Log("Connected to " + IP);
             _hasConnected = true;
-            
-            //connectionInfo.text = 
         }
     }
 
@@ -64,38 +57,29 @@ public class MainMenuScript : MonoBehaviour
             connectionInfo.GetComponent<Text>().text = "Started host";
             //NetworkServer.Reset();
             _discoveryHelper.StopBroadcast();
-            
-            _networkManager.StartHost();
-            Debug.Log("Started host server");
-            _discoveryHelper.StartAsServer();
-            
-            
-            //_discoveryHelper.broadcastPort = 
-            //Starthost vs startasserver?
-            Debug.Log("Started broadcast on " + _networkManager.networkAddress + ":" + _discoveryHelper.broadcastPort);
-            
-        }
-        // else 
-        // {
-        //     ClientScene.AddPlayer(0);
-        // }
 
-        //GameObject.Find("MainMenuCanvas").SetActive(false);
-        
+            _networkManager.StartHost();
+            //Debug.Log("Started host server");
+            _discoveryHelper.StartAsServer();
+
+
+            //Debug.Log("Started broadcast on " + _networkManager.networkAddress + ":" + _discoveryHelper.broadcastPort);
+        }
+
         GameObject[] uiComponents = GameObject.FindGameObjectsWithTag("MenuUIComponent");
 
         foreach (GameObject uiComponent in uiComponents)
         {
             uiComponent.SetActive(false);
         }
-        Debug.Log("Closed main menu");
+
+        //Debug.Log("Closed main menu");
     }
 
     public void ChangeSettings()
     {
         Debug.Log("Settings management is not implemented yet");
     }
-    
 }
 
 
