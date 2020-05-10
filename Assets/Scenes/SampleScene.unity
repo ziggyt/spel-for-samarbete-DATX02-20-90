@@ -669,8 +669,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 261490486}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -50, y: 10, z: 150}
-  m_LocalScale: {x: 1, y: 15, z: 400}
+  m_LocalPosition: {x: -5, y: 10, z: 150}
+  m_LocalScale: {x: 1, y: 15, z: 310}
   m_Children: []
   m_Father: {fileID: 432545077}
   m_RootOrder: 0
@@ -762,8 +762,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 311857085}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 450, y: 10, z: 150}
-  m_LocalScale: {x: 1, y: 15, z: 400}
+  m_LocalPosition: {x: 405, y: 10, z: 150}
+  m_LocalScale: {x: 1, y: 15, z: 310}
   m_Children: []
   m_Father: {fileID: 432545077}
   m_RootOrder: 1
@@ -1911,7 +1911,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f26626ef672f2944916a6137e2cfed0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lives: 2
+  lives: 10
 --- !u!114 &1028930595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2119,7 +2119,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
@@ -2245,7 +2245,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 0
-  serializedVersion: 3
+  serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
@@ -2343,8 +2343,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1488554884}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 200, y: 10, z: 350}
-  m_LocalScale: {x: 1, y: 15, z: 500}
+  m_LocalPosition: {x: 200, y: 10, z: 305}
+  m_LocalScale: {x: 1, y: 15, z: 410}
   m_Children: []
   m_Father: {fileID: 432545077}
   m_RootOrder: 2
@@ -2763,8 +2763,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1721132905}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 200, y: 10, z: -50}
-  m_LocalScale: {x: 1, y: 15, z: 500}
+  m_LocalPosition: {x: 200, y: 10, z: -5}
+  m_LocalScale: {x: 1, y: 15, z: 410}
   m_Children: []
   m_Father: {fileID: 432545077}
   m_RootOrder: 3
@@ -3129,8 +3129,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   flightHeight: 5
   maxSpawnTime: 30
-  minSpawnTime: 25
-  spawnOffset: 20
+  minSpawnTime: 20
+  spawnOffset: 60
   speed: 15
   prefab: {fileID: 1797549254315602, guid: f389977f3e24d09428c7f898dea233ca, type: 3}
   plane: {fileID: 1350809650}
@@ -3581,9 +3581,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flightHeight: 2
-  maxSpawnTime: 10
-  minSpawnTime: 2
-  spawnOffset: 50
+  maxSpawnTime: 8
+  minSpawnTime: 4
+  spawnOffset: 60
   speed: 10
   prefab: {fileID: 6487564158630302054, guid: ac8148bb9b6f22b4ab3884827fbb0cb9, type: 3}
   plane: {fileID: 1350809650}
