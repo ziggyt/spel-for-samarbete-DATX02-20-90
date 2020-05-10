@@ -155,7 +155,7 @@ public class Spawner : NetworkBehaviour
         CalculateEdges();
 
         // Initial spawn
-        float randomTime = Random.Range(minSpawnTime, maxSpawnTime);
+        float randomTime = Random.Range(minSpawnTime+2, maxSpawnTime+2);
         Invoke("RandomSpawn", randomTime);
     }
 }

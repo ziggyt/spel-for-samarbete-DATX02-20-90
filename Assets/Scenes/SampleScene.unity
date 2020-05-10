@@ -3581,7 +3581,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   flightHeight: 2
-  maxSpawnTime: 8
+  maxSpawnTime: 6
   minSpawnTime: 4
   spawnOffset: 60
   speed: 10
