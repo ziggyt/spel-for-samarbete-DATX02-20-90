@@ -8,8 +8,6 @@ using UnityEngine.UI;
 public class GameOverManager : MonoBehaviour
 {
     [SerializeField] private Button playAgainButton;
-    [SerializeField] private Button quitButton;
-
     private void ShutDownNetwork()
     {
         Destroy(NetworkManager.singleton.gameObject);
@@ -31,6 +29,5 @@ public class GameOverManager : MonoBehaviour
     private void Start()
     {
         playAgainButton.onClick.AddListener(PlayAgain);
-        quitButton.onClick.AddListener(Quit);
     }
 }
