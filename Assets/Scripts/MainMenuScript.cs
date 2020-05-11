@@ -14,13 +14,14 @@ public class MainMenuScript : MonoBehaviour
     public NetworkManager _networkManager;
     public Image buttonBackground;
     public TextMeshProUGUI buttonText;
+
+    public AudioSource audio;
     //public GameObject connectionInfo;
 
 
     private void Awake()
     {
-        _discoveryHelper = gameObject.AddComponent<DiscoveryHelper>();
-    }
+        _discoveryHelper = gameObject.AddComponent<DiscoveryHelper>(); }
 
     private void Update()
     {
@@ -49,7 +50,7 @@ public class MainMenuScript : MonoBehaviour
             //Debug.Log("Connected to " + IP);
             _hasConnected = true;
             
-            buttonBackground.color = Color.blue;
+            buttonBackground.color = Color.cyan;
             buttonText.text = "Anslut till spel";
 
         }
@@ -79,6 +80,12 @@ public class MainMenuScript : MonoBehaviour
         }
 
         //Debug.Log("Closed main menu");
+    }
+
+
+    public void ChangeAudio()
+    {
+        audio.mute = !audio.mute;
     }
 
     public void ChangeSettings()
