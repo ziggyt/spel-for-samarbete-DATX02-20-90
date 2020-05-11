@@ -51,7 +51,7 @@ public class MainMenuScript : MonoBehaviour
             _hasConnected = true;
             
             buttonBackground.color = Color.cyan;
-            buttonText.text = "Anslut till spel";
+            buttonText.text = "Connect to game";
 
         }
     }
