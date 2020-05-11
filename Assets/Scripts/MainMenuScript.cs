@@ -60,6 +60,9 @@ public class MainMenuScript : MonoBehaviour
     {
         if (!_discoveryHelper.HasFoundBroadcast)
         {
+            //Reset score
+            ScoreManager.scoreValue = 0;
+            
             //connectionInfo.GetComponent<Text>().text = "Started host";
             //NetworkServer.Reset();
             _discoveryHelper.StopBroadcast();
