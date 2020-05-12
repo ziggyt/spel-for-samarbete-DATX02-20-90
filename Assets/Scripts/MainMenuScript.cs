@@ -4,6 +4,7 @@ using TMPro.Examples;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 
@@ -15,14 +16,22 @@ public class MainMenuScript : MonoBehaviour
     public Image buttonBackground;
     public TextMeshProUGUI buttonText;
 
-    public AudioSource audio;
+    [FormerlySerializedAs("audio")] public AudioSource menuAudioSource;
+    public AudioSource gameMusic;
+    public Image audioImage;
     //public GameObject connectionInfo;
 
 
     private void Awake()
     {
-        _discoveryHelper = gameObject.AddComponent<DiscoveryHelper>(); }
+        _discoveryHelper = gameObject.AddComponent<DiscoveryHelper>(); 
+    }
 
+    private void Start()
+    {
+        gameMusic.enabled = false;
+    }
+    
     private void Update()
     {
         //hasFoundHostInfo.GetComponent<Text>().text = "HasFoundBroadcast: " + _discoveryHelper.HasFoundBroadcast + "\nHasConnected: " + _hasConnected;
@@ -62,7 +71,10 @@ public class MainMenuScript : MonoBehaviour
         {
             //Reset score
             ScoreManager.scoreValue = 0;
-            
+            menuAudioSource.enabled = false;
+            gameMusic.enabled = true;
+            gameMusic.mute = menuAudioSource.mute;
+
             //connectionInfo.GetComponent<Text>().text = "Started host";
             //NetworkServer.Reset();
             _discoveryHelper.StopBroadcast();
@@ -88,7 +100,17 @@ public class MainMenuScript : MonoBehaviour
 
     public void ChangeAudio()
     {
-        audio.mute = !audio.mute;
+        menuAudioSource.mute = !menuAudioSource.mute;
+        gameMusic.mute = !gameMusic.mute;
+
+        if (menuAudioSource.mute)
+        {
+            audioImage.color = Color.green;
+        }
+        else
+        {
+            audioImage.color = Color.white;
+        }
     }
 
     public void ChangeSettings()
