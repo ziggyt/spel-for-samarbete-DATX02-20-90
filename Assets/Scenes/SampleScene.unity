@@ -2657,7 +2657,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
@@ -2783,7 +2783,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 0
-  serializedVersion: 3
+  serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
@@ -3749,6 +3749,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea8f90ffaf0c6e54ba82d6f85337c37f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  angleOffset: 15
   flightHeight: 5
   maxSpawnTime: 30
   minSpawnTime: 20
@@ -4204,6 +4205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea8f90ffaf0c6e54ba82d6f85337c37f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  angleOffset: 15
   flightHeight: 2
   maxSpawnTime: 6
   minSpawnTime: 4

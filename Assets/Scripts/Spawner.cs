@@ -9,6 +9,7 @@ public class Spawner : NetworkBehaviour
     private float planeRightEdge;
     private float planeTopEdge;
     private SpawnSide spawnSide;
+    [SerializeField] private float angleOffset = 0f;
     [SerializeField] private float flightHeight = 10f;
     [SerializeField] private float maxSpawnTime = 20f;
     [SerializeField] private float minSpawnTime = 5f;
@@ -131,16 +132,16 @@ public class Spawner : NetworkBehaviour
         switch (spawnSide)
         {
             case SpawnSide.Top:
-                yRot = Random.Range(135f, 225f);
+                yRot = Random.Range(135f + angleOffset, 225f - angleOffset);
                 break;
             case SpawnSide.Right:
-                yRot = Random.Range(225f, 315f);
+                yRot = Random.Range(225f + angleOffset, 315f - angleOffset);
                 break;
             case SpawnSide.Bottom:
-                yRot = Random.Range(-45f, 45f);
+                yRot = Random.Range(-45f + angleOffset, 45f - angleOffset);
                 break;
             default:
-                yRot = Random.Range(45f, 135f);
+                yRot = Random.Range(45f + angleOffset, 135f - angleOffset);
                 break;
         }
 
