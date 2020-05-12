@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 57378635}
   - component: {fileID: 57378634}
   m_Layer: 5
-  m_Name: SolidColorBackground
+  m_Name: Solid Color Background
   m_TagString: MenuUIComponent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 112063889}
   - component: {fileID: 112063888}
   m_Layer: 5
-  m_Name: PlayButton
+  m_Name: Play Button
   m_TagString: MenuUIComponent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -636,8 +636,8 @@ MonoBehaviour:
   buttonBackground: {fileID: 112063885}
   buttonText: {fileID: 1877887284}
   menuAudioSource: {fileID: 1995336226}
-  gameMusic: {fileID: 882363869}
-  audioImage: {fileID: 770910169}
+  gameAudioSource: {fileID: 882363869}
+  muteButtonBackgroundImage: {fileID: 770910169}
 --- !u!1 &204926161
 GameObject:
   m_ObjectHideFlags: 0
@@ -1238,7 +1238,7 @@ GameObject:
   - component: {fileID: 688178494}
   - component: {fileID: 688178493}
   m_Layer: 5
-  m_Name: SettingsButton
+  m_Name: Settings Button
   m_TagString: MenuUIComponent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1623,7 +1623,7 @@ GameObject:
   - component: {fileID: 770910172}
   - component: {fileID: 770910171}
   m_Layer: 5
-  m_Name: AudioButton
+  m_Name: Audio Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1942,7 +1942,7 @@ GameObject:
   - component: {fileID: 865359074}
   - component: {fileID: 865359073}
   m_Layer: 5
-  m_Name: SpaceWaveBackground
+  m_Name: Space Wave Background
   m_TagString: MenuUIComponent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2014,7 +2014,7 @@ GameObject:
   - component: {fileID: 882363870}
   - component: {fileID: 882363869}
   m_Layer: 0
-  m_Name: GameMusic
+  m_Name: Game Audio Source
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2284,7 +2284,7 @@ GameObject:
   - component: {fileID: 956626678}
   - component: {fileID: 956626677}
   m_Layer: 0
-  m_Name: NetworkDiscovery
+  m_Name: Network Discovery
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3883,7 +3883,7 @@ GameObject:
   - component: {fileID: 1991904423}
   - component: {fileID: 1991904422}
   m_Layer: 5
-  m_Name: MainMenuCanvas
+  m_Name: Main Menu Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

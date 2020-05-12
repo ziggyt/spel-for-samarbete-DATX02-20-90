@@ -17,8 +17,8 @@ public class MainMenuScript : MonoBehaviour
     public TextMeshProUGUI buttonText;
 
     [FormerlySerializedAs("audio")] public AudioSource menuAudioSource;
-    public AudioSource gameMusic;
-    public Image audioImage;
+    [FormerlySerializedAs("gameMusic")] public AudioSource gameAudioSource;
+    [FormerlySerializedAs("audioImage")] public Image muteButtonBackgroundImage;
     //public GameObject connectionInfo;
 
 
@@ -29,7 +29,7 @@ public class MainMenuScript : MonoBehaviour
 
     private void Start()
     {
-        gameMusic.enabled = false;
+        gameAudioSource.enabled = false;
     }
     
     private void Update()
@@ -72,8 +72,8 @@ public class MainMenuScript : MonoBehaviour
             //Reset score
             ScoreManager.scoreValue = 0;
             menuAudioSource.enabled = false;
-            gameMusic.enabled = true;
-            gameMusic.mute = menuAudioSource.mute;
+            gameAudioSource.enabled = true;
+            gameAudioSource.mute = menuAudioSource.mute;
 
             //connectionInfo.GetComponent<Text>().text = "Started host";
             //NetworkServer.Reset();
@@ -101,15 +101,15 @@ public class MainMenuScript : MonoBehaviour
     public void ChangeAudio()
     {
         menuAudioSource.mute = !menuAudioSource.mute;
-        gameMusic.mute = !gameMusic.mute;
+        gameAudioSource.mute = !gameAudioSource.mute;
 
         if (menuAudioSource.mute)
         {
-            audioImage.color = Color.green;
+            muteButtonBackgroundImage.color = Color.green;
         }
         else
         {
-            audioImage.color = Color.white;
+            muteButtonBackgroundImage.color = Color.white;
         }
     }
 
