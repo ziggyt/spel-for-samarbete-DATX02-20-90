@@ -5,8 +5,10 @@ public class LandingPadHandler : NetworkBehaviour
 {
     // Variables
     [SerializeField] private GameObject currentPad;
+    [SerializeField] private Light currentPadLight;
     [SerializeField] private GameObject nextPad;
     [SyncVar] private Color currentPadColor;
+    [SyncVar] private Color currentPadColorLight;
     [SyncVar] private Color nextPadColor;
     private ColorCoordinator colorCoordinator;
 
@@ -16,6 +18,7 @@ public class LandingPadHandler : NetworkBehaviour
         currentPadColor = currentColor;
         nextPadColor = nextColor;
         currentPad.GetComponent<MeshRenderer>().material.color = currentColor;
+        currentPadLight.color = currentColor;
         nextPad.GetComponent<MeshRenderer>().material.color = nextColor;
     }
 
