@@ -6,19 +6,17 @@ public class ScoreManager : NetworkBehaviour
 {
     // Variables
     [SyncVar] [SerializeField] private int score = 0;
-    private int value = 1;
     private Text scoreText;
-    
-    void Start()
+
+    private void Awake()
     {
-        scoreText = GetComponent<Text>();
-        UpdateScoreText();
     }
 
-    // Save score to local storage when scene close
-    private void OnDisable()
+    void Start()
     {
-        PlayerPrefs.SetInt("score", score);
+        DontDestroyOnLoad(this.transform.parent);
+        scoreText = GetComponent<Text>();
+        UpdateScoreText();
     }
 
     // Update text with current score
@@ -28,6 +26,7 @@ public class ScoreManager : NetworkBehaviour
     }
 
     // Add score
+    [Server]
     public void AddScore()
     {
         score++; 
@@ -41,9 +40,10 @@ public class ScoreManager : NetworkBehaviour
     }
 
     // Set score to 0
+    [Server]
     public void ResetScore()
     {
-//        score = 0;
-//        UpdateScoreText();
+        score = 0;
+        UpdateScoreText();
     }
 }
