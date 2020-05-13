@@ -70,7 +70,7 @@ public class MainMenuScript : MonoBehaviour
         if (!_discoveryHelper.HasFoundBroadcast)
         {
             //Reset score
-            ScoreManager.scoreValue = 0;
+            FindObjectOfType<ScoreManager>().ResetScore();
             menuAudioSource.enabled = false;
             gameAudioSource.enabled = true;
             gameAudioSource.mute = menuAudioSource.mute;

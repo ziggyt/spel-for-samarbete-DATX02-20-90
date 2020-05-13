@@ -28,6 +28,10 @@ public class GameOverManager : MonoBehaviour
 
     private void Start()
     {
+        Transform scoreTransform = transform.Find("Score");
+        Text scoreText = scoreTransform.GetComponent<Text>();
+        scoreText.text = "Score: " + PlayerPrefs.GetInt("score");
+
         playAgainButton.onClick.AddListener(PlayAgain);
     }
 }
