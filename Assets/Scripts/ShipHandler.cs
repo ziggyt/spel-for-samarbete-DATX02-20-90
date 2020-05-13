@@ -15,11 +15,17 @@ public class ShipHandler : NetworkBehaviour
     [SerializeField] private GameObject explosionPrefab;
     [SyncVar] private Color shipColor;
 
+    // Add score
+    private void AddScore()
+    {
+        ScoreManager sm = FindObjectOfType<ScoreManager>();
+        sm.AddScore();
+    }
+
     // Execute death sequence
     private void DeathSequence()
     {
         PlayExplosion();
-        HandleLives();
         Destroy(gameObject);
     }
 
@@ -118,7 +124,7 @@ public class ShipHandler : NetworkBehaviour
             if (padColor == shipColor)
             {
                 // TODO: Add points and maybe some nice particle effect
-                ScoreManager.scoreValue += 1;
+                AddScore();
                 
                 // Change color of current and next pad
                 LandingPadHandler padHandler = pad.GetComponentInParent<LandingPadHandler>();
@@ -129,11 +135,13 @@ public class ShipHandler : NetworkBehaviour
             else
             {
                 DeathSequence();
+                HandleLives();
             }
         }
         else
         {
             DeathSequence();
+            HandleLives();
         }
     }
 
