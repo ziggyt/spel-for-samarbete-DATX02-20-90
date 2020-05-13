@@ -16,6 +16,7 @@ public class ShipHandler : NetworkBehaviour
     [SyncVar] private Color shipColor;
 
     // Add score
+    [Server]
     private void AddScore()
     {
         ScoreManager sm = FindObjectOfType<ScoreManager>();

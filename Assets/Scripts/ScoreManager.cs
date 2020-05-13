@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.PlayerLoop;
 using UnityEngine.UI;
 
 public class ScoreManager : NetworkBehaviour
 {
     // Variables
-    [SyncVar] private int score = 10;
+    [SyncVar] [SerializeField] private int score = 0;
     private int value = 1;
     private Text scoreText;
     
@@ -31,8 +30,7 @@ public class ScoreManager : NetworkBehaviour
     // Add score
     public void AddScore()
     {
-        Debug.Log("Add score " + value);
-        score += value;
+        score++; 
         UpdateScoreText();
     }
 
@@ -45,7 +43,7 @@ public class ScoreManager : NetworkBehaviour
     // Set score to 0
     public void ResetScore()
     {
-        score = 0;
-        UpdateScoreText();
+//        score = 0;
+//        UpdateScoreText();
     }
 }
