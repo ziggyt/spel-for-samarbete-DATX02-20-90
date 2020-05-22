@@ -13,8 +13,10 @@ public class Spawner : NetworkBehaviour
     [SerializeField] private float flightHeight = 10f;
     [SerializeField] private float maxSpawnTime = 20f;
     [SerializeField] private float minSpawnTime = 5f;
+    [SerializeField] private float spawnDecrease = 0.1f;
     [SerializeField] private float spawnOffset = 20f;
     [SerializeField] private float speed = 5f;
+    [SerializeField] private float speedIncrease = 0.1f;
     [SerializeField] private GameObject prefab;
     [SerializeField] private Transform plane;
     [SerializeField] private bool isActive = false;
@@ -90,6 +92,10 @@ public class Spawner : NetworkBehaviour
         SpawnEntity();
         
         float randomTime = Random.Range(minSpawnTime, maxSpawnTime);
+
+        if (!(minSpawnTime <= 1)) minSpawnTime -= spawnDecrease;
+        if (!(maxSpawnTime <= 1)) maxSpawnTime -= spawnDecrease;
+
         Invoke("RandomSpawn", randomTime);
     }
 
@@ -113,6 +119,9 @@ public class Spawner : NetworkBehaviour
             ShipHandler shipHandler = entity.GetComponent<ShipHandler>();
             shipHandler.CurrentDirection = CalculateStartVelocity(entity);
             shipHandler.Speed = speed;
+
+            if (speed <= 50) speed += speedIncrease;
+            
             ColorCoordinator colorCoordinator = FindObjectOfType<ColorCoordinator>();
             shipHandler.ShipColor = colorCoordinator.GetRandomPadColor();
         }
@@ -156,7 +165,7 @@ public class Spawner : NetworkBehaviour
         CalculateEdges();
 
         // Initial spawn
-        float randomTime = Random.Range(minSpawnTime+2, maxSpawnTime+2);
+        float randomTime = Random.Range(minSpawnTime + 5, maxSpawnTime + 5);
         Invoke("RandomSpawn", randomTime);
     }
 }
