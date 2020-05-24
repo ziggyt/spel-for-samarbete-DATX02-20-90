@@ -12,13 +12,14 @@ public class MainMenuScript : MonoBehaviour
 {
     private DiscoveryHelper _discoveryHelper;
     private bool _hasConnected = false;
-    public NetworkManager _networkManager;
+    [FormerlySerializedAs("_networkManager")] public NetworkManager networkManager;
     public Image buttonBackground;
     public TextMeshProUGUI buttonText;
+    public GameObject audioButton;
 
     [FormerlySerializedAs("audio")] public AudioSource menuAudioSource;
     [FormerlySerializedAs("gameMusic")] public AudioSource gameAudioSource;
-    [FormerlySerializedAs("audioImage")] public Image muteButtonBackgroundImage;
+    [FormerlySerializedAs("muteButtonBackgroundImage")] [FormerlySerializedAs("audioImage")] public Image audioButtonBackgroundImage;
 
 
     private void Awake()
@@ -47,14 +48,17 @@ public class MainMenuScript : MonoBehaviour
             
             String IP = _discoveryHelper.ServerIp;
             
-            _networkManager.networkAddress = IP;
-            _networkManager.networkPort = 7777;
-            _networkManager.StartClient();
+            networkManager.networkAddress = IP;
+            networkManager.networkPort = 7777;
+            networkManager.StartClient();
             
             _hasConnected = true;
             
             buttonBackground.color = Color.cyan;
             buttonText.text = "Connect to game";
+
+            gameAudioSource.enabled = false;
+            audioButton.SetActive(false);
 
         }
     }
@@ -75,7 +79,7 @@ public class MainMenuScript : MonoBehaviour
             
             _discoveryHelper.StopBroadcast();
 
-            _networkManager.StartHost();
+            networkManager.StartHost();
             
             _discoveryHelper.StartAsServer();
             
@@ -98,11 +102,11 @@ public class MainMenuScript : MonoBehaviour
 
         if (menuAudioSource.mute)
         {
-            muteButtonBackgroundImage.color = Color.green;
+            audioButtonBackgroundImage.color = Color.green;
         }
         else
         {
-            muteButtonBackgroundImage.color = Color.white;
+            audioButtonBackgroundImage.color = Color.white;
         }
     }
 
