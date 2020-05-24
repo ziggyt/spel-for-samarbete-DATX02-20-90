@@ -13,6 +13,7 @@ public class ShipHandler : NetworkBehaviour
     private Vector3 currentDirection;
     [SerializeField] private float speed = 2f;
     [SerializeField] private GameObject explosionPrefab;
+    [SerializeField] private GameObject landingEffectPrefab;
     [SyncVar] private Color shipColor;
 
     // Add score
@@ -126,12 +127,13 @@ public class ShipHandler : NetworkBehaviour
             {
                 // TODO: Add points and maybe some nice particle effect
                 AddScore();
+                PlayLandingEffect();
                 
                 // Change color of current and next pad
                 LandingPadHandler padHandler = pad.GetComponentInParent<LandingPadHandler>();
                 padHandler.NewPadColors(padColor);
 
-                Destroy(gameObject);
+                Destroy(gameObject, 0.5f);
             }
             else
             {
@@ -144,6 +146,14 @@ public class ShipHandler : NetworkBehaviour
             DeathSequence();
             HandleLives();
         }
+    }
+    
+    // Spawns, plays and destroys the explosion at ships position
+    private void PlayLandingEffect()
+    {
+        GameObject landingEffect = Instantiate(landingEffectPrefab, transform.position, transform.rotation);
+        NetworkServer.Spawn(landingEffect);
+        Destroy(landingEffect, 2f);
     }
 
     // Spawns, plays and destroys the explosion at ships position
