@@ -638,12 +638,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51a55fc136f765f42886b1e86bf5af53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _networkManager: {fileID: 812203432}
+  networkManager: {fileID: 812203432}
   buttonBackground: {fileID: 112063885}
   buttonText: {fileID: 1877887284}
+  audioButton: {fileID: 770910166}
   menuAudioSource: {fileID: 1995336226}
   gameAudioSource: {fileID: 882363869}
-  muteButtonBackgroundImage: {fileID: 770910169}
+  audioButtonBackgroundImage: {fileID: 770910169}
 --- !u!1 &204926161
 GameObject:
   m_ObjectHideFlags: 0
@@ -2484,7 +2485,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
+  serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
@@ -2610,7 +2611,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 0
-  serializedVersion: 4
+  serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
