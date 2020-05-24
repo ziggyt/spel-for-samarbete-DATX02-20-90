@@ -1745,6 +1745,7 @@ MonoBehaviour:
   - {fileID: 6350153417118475108, guid: 4fbc7fba5051f79409955c8968f4237a, type: 3}
   - {fileID: 1797549254315602, guid: f389977f3e24d09428c7f898dea233ca, type: 3}
   - {fileID: 5004824835782125627, guid: 3232e0b3d074fd3458b0e747ab1c43c9, type: 3}
+  - {fileID: 1274747321251030, guid: b7194faf4aa502d4dbb197c2349b2082, type: 3}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -2485,7 +2486,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
@@ -2611,7 +2612,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 0
-  serializedVersion: 3
+  serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}

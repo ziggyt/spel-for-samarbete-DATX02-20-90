@@ -282,6 +282,8 @@ MonoBehaviour:
   speed: 10
   explosionPrefab: {fileID: 1756509070997670, guid: 1ee71597ac9a7a24a8dca68255dbacec,
     type: 3}
+  landingEffectPrefab: {fileID: 1274747321251030, guid: b7194faf4aa502d4dbb197c2349b2082,
+    type: 3}
 --- !u!1001 &973446628851485373
 PrefabInstance:
   m_ObjectHideFlags: 0
