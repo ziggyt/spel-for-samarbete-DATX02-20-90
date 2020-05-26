@@ -1,7 +1,24 @@
 # spel-for-samarbete-DATX02-20-90
 Repo for the Unity project in DATX02-20-90
 
-# Grundläggande grejer: 
+## För att köra projektet
+- Klona repot eller ladda ner en .zip av filerna i repot
+- Öppna projektet via Unity Hub (Klicka på "Add" och välj mappen dit du klonade repot)
+- Installera Multiplayer HLAPI via Unitys inbyggda package manager (Window -> Package manager -> Sök efter hlapi och klicka installera)
+- Ändra byggordningen i build settings så att GameScene ligger på plats **0** och GameOverScene ligger på plats **1** (File -> build settings -> dra in både GameScene och GameOverScene -> se till att GameScene ligger överst)
+- Klicka på build eller kör spelet direkt i Unity
+
+## För att installera och köra på iPad
+Följ nedanstående guider
+
+- https://www.youtube.com/watch?v=80-nE7ichvk
+- https://learn.unity.com/tutorial/building-for-mobile#5c7f8528edbc2a002053b4a2
+
+----
+
+# Gruppspecifikt
+
+## Grundläggande grejer: 
 ### Pusha aldrig direkt till master!
 
 #### Specifikt för git
