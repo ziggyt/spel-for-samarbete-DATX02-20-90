@@ -102,11 +102,11 @@ public class MainMenuScript : MonoBehaviour
 
         if (menuAudioSource.mute)
         {
-            audioButtonBackgroundImage.color = Color.green;
+            audioButtonBackgroundImage.color = Color.white;
         }
         else
         {
-            audioButtonBackgroundImage.color = Color.white;
+            audioButtonBackgroundImage.color = Color.green;
         }
     }
 
