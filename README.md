@@ -12,7 +12,7 @@ Repo for the Unity project in DATX02-20-90
 Följ nedanstående guider
 
 - https://www.youtube.com/watch?v=80-nE7ichvk
-- https://learn.unity.com/tutorial/building-for-mobile#5c7f8528edbc2a002053b4a2
+- https://learn.unity.com/tutorial/building-for-mobile
 
 ----
 
